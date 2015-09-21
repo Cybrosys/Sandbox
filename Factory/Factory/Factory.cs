@@ -8,43 +8,34 @@ namespace Factory
 {
     public partial class Factory
     {
-        private static Dictionary<string, Dictionary<string, WeakReference<object>>> _typeDictionaries = new Dictionary<string, Dictionary<string, WeakReference<object>>>();
+        private static Dictionary<string, WeakReference<object>> _dictionary = new Dictionary<string, WeakReference<object>>();
         private static object thisLock = new object();
 
-        private static Dictionary<string, WeakReference<object>> GetDictionaryForType<T>()
+        public static T Get<T>(string id, Func<T> createInstance)
             where T : class, new()
         {
-            var typeId = typeof(T).AssemblyQualifiedName;
-            if (!_typeDictionaries.ContainsKey(typeId))
-            {
-                var dictionary = new Dictionary<string, WeakReference<object>>();
-                _typeDictionaries.Add(typeId, dictionary);
-                return dictionary;
-            }
-            return _typeDictionaries[typeId];
-        }
+            var key = typeof(T).AssemblyQualifiedName + "&" + id;
 
-        public static T Get<T>(string id)
-            where T : class, new()
-        {
             lock (thisLock)
             {
-                var dictionary = GetDictionaryForType<T>();
-                if (!dictionary.ContainsKey(id))
+                WeakReference<object> weakReference;
+                if (_dictionary.TryGetValue(key, out weakReference))
                 {
-                    var instance = Activator.CreateInstance<T>();
-                    dictionary.Add(id, new WeakReference<object>(instance));
+                    object target;
+                    if (!weakReference.TryGetTarget(out target))
+                    {
+                        target = createInstance();
+                        weakReference.SetTarget(target);
+                    }
+                    return (T)target;
+                }
+                else
+                {
+                    var instance = createInstance();
+                    weakReference = new WeakReference<object>(instance);
+                    _dictionary.Add(key, weakReference);
                     return instance;
                 }
-
-                WeakReference<object> weakReference = dictionary[id];
-                object target;
-                if (!weakReference.TryGetTarget(out target))
-                {
-                    target = Activator.CreateInstance<T>();
-                    weakReference.SetTarget(target);
-                }
-                return (T)target;
             }
         }
     }
@@ -61,6 +52,24 @@ namespace Factory
             where T : class, new()
         {
             return Get<T>(id.ToString());
+        }
+
+        public static T Get<T>(string id)
+            where T : class, new()
+        {
+            return Get<T>(id, () => Activator.CreateInstance<T>());
+        }
+
+        public static T Get<T>(int id, Func<T> createInstance)
+            where T : class, new()
+        {
+            return Get<T>(id.ToString(), createInstance);
+        }
+
+        public static T Get<T>(long id, Func<T> createInstance)
+            where T : class, new()
+        {
+            return Get<T>(id.ToString(), createInstance);
         }
     }
 }
