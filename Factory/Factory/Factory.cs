@@ -11,9 +11,17 @@ namespace Factory
         private static Dictionary<string, WeakReference<object>> _dictionary = new Dictionary<string, WeakReference<object>>();
         private static object thisLock = new object();
 
-        public static T Get<T>(string id, Func<T> createInstance)
-            where T : class, new()
+        private static Func<T> GetDefaultCreateInstance<T>()
         {
+            return () => Activator.CreateInstance<T>();
+        }
+
+        public static T Get<T>(string id, Func<T> createInstance)
+            where T : class
+        {
+            if (createInstance == null)
+                createInstance = GetDefaultCreateInstance<T>();
+
             var key = typeof(T).AssemblyQualifiedName + "&" + id;
 
             lock (thisLock)
@@ -45,29 +53,29 @@ namespace Factory
         public static T Get<T>(int id)
             where T : class, new()
         {
-            return Get<T>(id.ToString());
+            return Get<T>(id.ToString(), GetDefaultCreateInstance<T>());
         }
 
         public static T Get<T>(long id)
             where T : class, new()
         {
-            return Get<T>(id.ToString());
+            return Get<T>(id.ToString(), GetDefaultCreateInstance<T>());
         }
 
         public static T Get<T>(string id)
             where T : class, new()
         {
-            return Get<T>(id, () => Activator.CreateInstance<T>());
+            return Get<T>(id, GetDefaultCreateInstance<T>());
         }
 
         public static T Get<T>(int id, Func<T> createInstance)
-            where T : class, new()
+            where T : class
         {
             return Get<T>(id.ToString(), createInstance);
         }
 
         public static T Get<T>(long id, Func<T> createInstance)
-            where T : class, new()
+            where T : class
         {
             return Get<T>(id.ToString(), createInstance);
         }

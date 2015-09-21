@@ -86,7 +86,7 @@ namespace Factory.Test
         }
 
         [Test]
-        public void Get_value_holder_with_id_0_store_value_get_value_holder_with_id_0_same_reference_with_same_value_returned()
+        public void Get_value_holder_with_id_0_store_reference_value_get_value_holder_with_id_0_same_reference_with_same_value_reference_returned()
         {
             // Arrange
             const int id = 0;
@@ -103,7 +103,23 @@ namespace Factory.Test
         }
 
         [Test]
-        public void Get_value_holder_with_id_0_store_value_get_value_holder_with_id_1_not_same_reference_with_other_value_returned()
+        public void Get_value_holder_with_id_0_store_value_type_value_get_value_holder_with_id_0_same_reference_with_same_value_returned()
+        {
+            // Arrange
+            const int id = 0;
+            const long value = long.MaxValue;
+
+            // Act
+            var firstReference = Factory.Get<ValueHolder<long>>(id);
+            firstReference.Value = value;
+            var secondReference = Factory.Get<ValueHolder<long>>(id);
+
+            // Assert
+            Assert.That(firstReference.Value, Is.EqualTo(secondReference.Value));
+        }
+
+        [Test]
+        public void Get_value_holder_with_id_0_store_value_get_value_holder_with_id_1_other_reference_with_other_value_returned()
         {
             // Arrange
             const int firstId = 0;
