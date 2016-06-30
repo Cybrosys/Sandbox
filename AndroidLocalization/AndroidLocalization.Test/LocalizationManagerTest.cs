@@ -25,6 +25,21 @@ namespace AndroidLocalization.Test
             Assert.That(result, Is.Not.Empty);
             Assert.That(result.Count, Is.EqualTo(3));
         }
+
+        [Test]
+        public void Create_data_table_returns_populated_data_table()
+        {
+            // Arrange
+            var files = _manager.GetStringsFiles(_directoryName);
+
+            // Act
+            var result = _manager.CreateDataTable(files);
+
+            // Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Columns.Count, Is.EqualTo(4));
+            Assert.That(result.Rows.Count, Is.EqualTo(5));
+        }
     }
 
     public partial class LocalizationManagerTest
@@ -35,7 +50,7 @@ namespace AndroidLocalization.Test
         [SetUp]
         public void Init()
         {
-            _manager = new LocalizationManager(new StringsFileLoader(new StringsFileReader()));
+            _manager = new LocalizationManager(new StringsFileLocator(), new StringsFileLoader(new StringsFileReader()), new StringsFileDataTableBuilder());
             _directoryName = $"{Path.GetDirectoryName(Assembly.GetAssembly(typeof(StringsFileLoaderTest)).Location)}\\TestData\\";
         }
     }

@@ -15,11 +15,11 @@ namespace AndroidLocalization.Data
 
     public class StringsFileLoader : IStringsFileLoader
     {
-        private IStringsFileReader reader;
+        private IStringsFileReader _reader;
 
         public StringsFileLoader(IStringsFileReader reader)
         {
-            this.reader = reader;
+            _reader = reader;
         }
 
         public StringsFile Load(string filePath)
@@ -30,7 +30,7 @@ namespace AndroidLocalization.Data
             {
                 FilePath = filePath,
                 CountryCode = countryCode,
-                Rows = reader.ReadAll(XDocument.Load(filePath))
+                Rows = _reader.ReadAll(XDocument.Load(filePath))
             };
         }
 

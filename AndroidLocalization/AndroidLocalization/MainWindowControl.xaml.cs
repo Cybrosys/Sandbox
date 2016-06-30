@@ -9,17 +9,21 @@ namespace AndroidLocalization
     using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using System.Windows.Controls;
+    using ViewModels;
 
     /// <summary>
     /// Interaction logic for MainWindowControl.
     /// </summary>
     public partial class MainWindowControl : UserControl
     {
+        public MainViewModel ViewModel { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindowControl"/> class.
         /// </summary>
-        public MainWindowControl()
+        public MainWindowControl(MainViewModel viewModel)
         {
+            ViewModel = ViewModel;
             this.InitializeComponent();
         }
 
