@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace AndroidLocalization.Models
+namespace AndroidLocalization.Data
 {
     public class StringsFile
     {

@@ -1,6 +1,4 @@
-﻿using AndroidLocalization.Models;
-using AndroidLocalization.Parsers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,11 +6,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace AndroidLocalization.Loaders
+namespace AndroidLocalization.Data
 {
-    public class StringsFileLoader
+    public interface IStringsFileLoader
     {
-        private StringsFileParser _parser = new StringsFileParser();
+        StringsFile Load(string filePath);
+    }
+
+    public class StringsFileLoader : IStringsFileLoader
+    {
+        private IStringsFileReader reader;
+
+        public StringsFileLoader(IStringsFileReader reader)
+        {
+            this.reader = reader;
+        }
 
         public StringsFile Load(string filePath)
         {
@@ -21,7 +29,7 @@ namespace AndroidLocalization.Loaders
             return new StringsFile
             {
                 CountryCode = countryCode,
-                Rows = _parser.Parse(XDocument.Load(filePath))
+                Rows = reader.ReadAll(XDocument.Load(filePath))
             };
         }
 

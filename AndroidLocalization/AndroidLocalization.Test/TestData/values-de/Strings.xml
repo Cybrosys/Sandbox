@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="AppName">Easy Shop</string>
+
+    <string name="Add_item_problem">Fehler beim Hinzufügen des Artikels</string>
+    <string name="Barcode">Barcode</string>
+    <string name="Campaign">Kampagne</string>
+    <string name="Cancel">löschen</string>
+</resources>

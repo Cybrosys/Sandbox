@@ -41,6 +41,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CreateVsixContainer>True</CreateVsixContainer>
+    <DeployExtension>True</DeployExtension>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -49,11 +51,14 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CreateVsixContainer>True</CreateVsixContainer>
+    <DeployExtension>True</DeployExtension>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Loaders\StringsFileLoader.cs" />
-    <Compile Include="Models\StringsFile.cs" />
-    <Compile Include="Parsers\StringsFileParser.cs" />
+    <Compile Include="Data\StringsFileLoader.cs" />
+    <Compile Include="Data\StringsFile.cs" />
+    <Compile Include="Data\StringsFileReader.cs" />
+    <Compile Include="Managers\LocalizationManager.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="MainWindow.cs" />
     <Compile Include="MainWindowCommand.cs" />
