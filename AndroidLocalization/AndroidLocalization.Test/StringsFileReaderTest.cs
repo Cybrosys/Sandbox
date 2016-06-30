@@ -22,7 +22,6 @@ namespace AndroidLocalization.Test
             // Assert
             Assert.That(rows, Is.Not.Empty);
             Assert.That(rows.Count, Is.EqualTo(5));
-            rows.ForEach(row => Assert.True(!string.IsNullOrWhiteSpace(row.Item1) && !string.IsNullOrWhiteSpace(row.Item2)));
         }
     }
 

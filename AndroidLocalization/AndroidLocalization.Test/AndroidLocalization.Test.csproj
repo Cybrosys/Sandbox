@@ -58,6 +58,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="LocalizationManagerTest.cs" />
     <Compile Include="StringsFileLoaderTest.cs" />
     <Compile Include="StringsFileReaderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

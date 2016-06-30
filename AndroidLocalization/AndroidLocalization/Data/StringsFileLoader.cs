@@ -28,6 +28,7 @@ namespace AndroidLocalization.Data
 
             return new StringsFile
             {
+                FilePath = filePath,
                 CountryCode = countryCode,
                 Rows = reader.ReadAll(XDocument.Load(filePath))
             };

@@ -10,7 +10,8 @@ namespace AndroidLocalization.Data
 {
     public class StringsFile
     {
+        public string FilePath { get; set; }
         public string CountryCode { get; set; }
-        public List<Tuple<string, string>> Rows { get; set; }
+        public Dictionary<string, string> Rows { get; set; }
     }
 }
