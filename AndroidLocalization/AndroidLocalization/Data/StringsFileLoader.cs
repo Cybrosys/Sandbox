@@ -24,17 +24,17 @@ namespace AndroidLocalization.Data
 
         public StringsFile Load(string filePath)
         {
-            var countryCode = GetCountryCodeFromFilePath(filePath);
+            var languageCode = GetLanguageCodeFromFilePath(filePath);
 
             return new StringsFile
             {
                 FilePath = filePath,
-                CountryCode = countryCode,
+                LanguageCode = languageCode,
                 Rows = _reader.ReadAll(XDocument.Load(filePath))
             };
         }
 
-        private string GetCountryCodeFromFilePath(string filePath)
+        private string GetLanguageCodeFromFilePath(string filePath)
         {
             var directoryName = GetDirectoryNameFromFilePath(filePath).ToLower();
 

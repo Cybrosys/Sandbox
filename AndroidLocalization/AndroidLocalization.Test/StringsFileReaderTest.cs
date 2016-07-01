@@ -4,6 +4,7 @@ using Rhino.Mocks;
 using System.Xml.Linq;
 using NUnit.Framework;
 using System.Reflection;
+using System.IO;
 
 namespace AndroidLocalization.Test
 {
@@ -11,10 +12,12 @@ namespace AndroidLocalization.Test
     public partial class StringsFileReaderTest
     {
         [Test]
-        public void Read_all_returns_all_rows()
+        [TestCase("TestData\\values\\Strings.xml")]
+        public void Read_all_returns_all_rows(string relativePath)
         {
             // Arrange
-            var document = XDocument.Load(_filePath);
+            var filePath = Path.Combine(_directoryName, relativePath);
+            var document = XDocument.Load(filePath);
 
             // Act
             var rows = _reader.ReadAll(document);
@@ -27,14 +30,14 @@ namespace AndroidLocalization.Test
 
     public partial class StringsFileReaderTest
     {
-        private string _filePath;
         private StringsFileReader _reader;
+        private string _directoryName;
 
         [SetUp]
         public void Init()
         {
-            _filePath = $"{System.IO.Path.GetDirectoryName(Assembly.GetAssembly(GetType()).Location)}\\TestData\\values-sv\\Strings.xml";
             _reader = new StringsFileReader();
+            _directoryName = $"{Path.Combine(Path.GetDirectoryName(Assembly.GetAssembly(typeof(StringsFileLoaderTest)).Location), @"..\..\")}";
         }
     }
 }

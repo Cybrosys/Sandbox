@@ -9,6 +9,7 @@ using System.ComponentModel.Design;
 using System.Globalization;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using AndroidLocalization.ViewModels;
 
 namespace AndroidLocalization
 {
@@ -100,8 +101,26 @@ namespace AndroidLocalization
                 throw new NotSupportedException("Cannot create tool window");
             }
 
+            var mainWindow = (Views.MainWindowControl)window.Content;
+            var viewModel = mainWindow.DataContext as MainViewModel;
+            if (viewModel == null)
+            {
+                viewModel = new MainViewModel();
+                mainWindow.DataContext = viewModel;
+            }
+            viewModel.DirectoryPath = GetSolutionDirectory();
+
             IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
             Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
+        }
+
+        private string GetSolutionDirectory()
+        {
+            var service = (IVsSolution)ServiceProvider.GetService(typeof(SVsSolution));
+            if (service == null) return string.Empty;
+            string solutionDirectory, solutionFile, userOptsFile;
+            service.GetSolutionInfo(out solutionDirectory, out solutionFile, out userOptsFile);
+            return solutionDirectory;
         }
     }
 }

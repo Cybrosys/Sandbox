@@ -1,4 +1,6 @@
-﻿using AndroidLocalization.Managers;
+﻿using AndroidLocalization.Data;
+using AndroidLocalization.Managers;
+using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,31 +9,63 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace AndroidLocalization.ViewModels
 {
-    public class MainViewModel : ViewModel
+    // Flags can be retrieved with this http://www.geognos.com/api/en/countries/flag/SE.png
+
+    public class MainViewModel : ViewModelBase
     {
         private readonly LocalizationManager _manager;
+        private string _directoryPath;
+        private List<StringsFile> _stringsFiles;
         private DataTable _dataTable;
+
+        public string DirectoryPath
+        {
+            set
+            {
+                _directoryPath = value;
+                _stringsFiles = null;
+                DataTable = null;
+                Load();
+            }
+        }
+
         public DataTable DataTable
         {
             get { return _dataTable; }
-            set { SetProperty(ref _dataTable, value); }
+            set { Set(ref _dataTable, value); }
         }
 
-        public MainViewModel(LocalizationManager localizationManager)
+        private ICommand _refreshCommand;
+        private ICommand _saveCommand;
+
+        public ICommand RefreshCommand => _refreshCommand ?? (_refreshCommand = new RelayCommand(Load, () => !IsBusy && !string.IsNullOrWhiteSpace(_directoryPath)));
+        public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new RelayCommand(Save, () => !IsBusy && _stringsFiles != null && _stringsFiles.Count > 0));
+
+        public MainViewModel()
         {
-            _manager = localizationManager;
+            _manager = new LocalizationManager(new StringsFileLocator(), new StringsFileLoader(new StringsFileReader()), new StringsFileDataTableBuilder());
         }
 
-        public bool Load(string directoryPath)
+        private void Load()
         {
-            if (string.IsNullOrWhiteSpace(directoryPath)) return false;
-            var files = _manager.GetStringsFiles(directoryPath);
-            if (files == null || files.Count == 0) return false;
-            DataTable = _manager.CreateDataTable(files);
-            return true;
+            using (new BusyContext(this))
+            {
+                if (string.IsNullOrWhiteSpace(_directoryPath)) return;
+                _stringsFiles = _manager.GetStringsFiles(_directoryPath);
+                DataTable = _manager.CreateDataTable(_stringsFiles);
+            }
+        }
+
+        private void Save()
+        {
+            using (new BusyContext(this))
+            {
+                // TODO
+            }
         }
     }
 }

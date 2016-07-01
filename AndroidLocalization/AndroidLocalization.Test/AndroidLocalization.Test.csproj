@@ -76,15 +76,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestData\values-de\Strings.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\values-sv\Strings.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\values\Strings.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="TestData\values-de\Strings.xml" />
+    <Content Include="TestData\values-sv\Strings.xml" />
+    <Content Include="TestData\values\Strings.xml" />
   </ItemGroup>
   <ItemGroup />
   <Choose>

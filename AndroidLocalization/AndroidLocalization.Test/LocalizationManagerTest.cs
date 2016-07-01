@@ -51,7 +51,7 @@ namespace AndroidLocalization.Test
         public void Init()
         {
             _manager = new LocalizationManager(new StringsFileLocator(), new StringsFileLoader(new StringsFileReader()), new StringsFileDataTableBuilder());
-            _directoryName = $"{Path.GetDirectoryName(Assembly.GetAssembly(typeof(StringsFileLoaderTest)).Location)}\\TestData\\";
+            _directoryName = $"{Path.Combine(Path.GetDirectoryName(Assembly.GetAssembly(typeof(StringsFileLoaderTest)).Location), @"..\..\")}";
         }
     }
 }

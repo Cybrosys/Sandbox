@@ -11,7 +11,6 @@ namespace AndroidLocalization
     using Microsoft.VisualStudio.Shell;
     using Microsoft.VisualStudio.Shell.Interop;
     using ViewModels;
-    using Data;
 
     /// <summary>
     /// This class implements the tool window exposed by this package and hosts a user control.
@@ -32,24 +31,24 @@ namespace AndroidLocalization
         /// </summary>
         public MainWindow() : base(null)
         {
-            this.Caption = "MainWindow";
-
-            var mainViewModel = new MainViewModel(new Managers.LocalizationManager(new StringsFileLocator(), new StringsFileLoader(new StringsFileReader()), new StringsFileDataTableBuilder()));
-            mainViewModel.Load(GetSolutionDirectory());
+            Caption = "Android Localization";
 
             // This is the user control hosted by the tool window; Note that, even if this class implements IDisposable,
             // we are not calling Dispose on this object. This is because ToolWindowPane calls Dispose on
             // the object returned by the Content property.
-            this.Content = new MainWindowControl(mainViewModel);
+            Content = new Views.MainWindowControl();
+            //{
+            //    DataContext = new MainViewModel(GetSolutionDirectory())
+            //};
         }
 
-        private string GetSolutionDirectory()
-        {
-            var service = (IVsSolution)GetService(typeof(SVsSolution));
-            if (service == null) return string.Empty;
-            string solutionDirectory, solutionFile, userOptsFile;
-            service.GetSolutionInfo(out solutionDirectory, out solutionFile, out userOptsFile);
-            return solutionDirectory;
-        }
+        //public string GetSolutionDirectory()
+        //{
+        //    var service = (IVsSolution)GetService(typeof(SVsSolution));
+        //    if (service == null) return string.Empty;
+        //    string solutionDirectory, solutionFile, userOptsFile;
+        //    service.GetSolutionInfo(out solutionDirectory, out solutionFile, out userOptsFile);
+        //    return solutionDirectory;
+        //}
     }
 }

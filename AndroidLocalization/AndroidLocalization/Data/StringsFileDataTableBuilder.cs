@@ -34,21 +34,18 @@ namespace AndroidLocalization.Data
         private DataTable CreateDataTable(List<string> keys, List<StringsFile> stringsFiles)
         {
             var table = new DataTable();
-
             table.Columns.Add(new DataColumn("Key") { AllowDBNull = false, Unique = true });
-
             GetColumns(stringsFiles).ForEach(table.Columns.Add);
             keys.ForEach(key => table.Rows.Add(GetRowValuesForKey(key, stringsFiles)));
-
             return table;
         }
 
         private List<DataColumn> GetColumns(List<StringsFile> stringsFiles)
         {
-            return stringsFiles.Select(file => new DataColumn(GetColumnNameFromCountryCode(file.CountryCode), typeof(string))).ToList();
+            return stringsFiles.Select(file => new DataColumn(GetColumnNameFromLanguageCode(file.LanguageCode), typeof(string))).ToList();
         }
 
-        private string GetColumnNameFromCountryCode(string countryCode)
+        private string GetColumnNameFromLanguageCode(string countryCode)
         {
             if (string.IsNullOrWhiteSpace(countryCode)) return "Default";
             return new CultureInfo(countryCode).EnglishName;
