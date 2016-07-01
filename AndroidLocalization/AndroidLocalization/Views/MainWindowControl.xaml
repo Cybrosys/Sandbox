@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:views="clr-namespace:AndroidLocalization.Views"
              Background="{DynamicResource VsBrush.Window}"
              Foreground="{DynamicResource VsBrush.WindowText}"
              mc:Ignorable="d"
@@ -14,17 +15,17 @@
                 <Button Command="{Binding RefreshCommand}" ToolTip="Refresh" Focusable="False">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2,2,2,2" VerticalAlignment="Top" Source="../Resources/Refresh_16x.png" />
-                        <TextBlock Margin="2,2,2,2" VerticalAlignment="Center">Refresh</TextBlock>
+                        <TextBlock Text="Refresh" Margin="2,2,2,2" VerticalAlignment="Center" />
                     </StackPanel>
                 </Button>
                 <Button Command="{Binding SaveCommand}" ToolTip="Save" Focusable="False">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2,2,2,2" VerticalAlignment="Top" Source="../Resources/Save_16x.png" />
-                        <TextBlock Margin="2,2,2,2" VerticalAlignment="Center">Save</TextBlock>
+                        <TextBlock Text="Save" Margin="2,2,2,2" VerticalAlignment="Center" />
                     </StackPanel>
                 </Button>
             </ToolBar>
         </ToolBarTray>
-        <DataGrid ItemsSource="{Binding DataTable}" FrozenColumnCount="1" CanUserSortColumns="True"/>
+        <DataGrid ItemsSource="{Binding DataTable}" FrozenColumnCount="1" CanUserSortColumns="True" SelectionMode="Single" SelectionUnit="Cell" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" />
     </DockPanel>
 </UserControl>
