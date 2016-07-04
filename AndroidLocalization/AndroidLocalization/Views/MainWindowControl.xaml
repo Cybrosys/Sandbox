@@ -16,13 +16,13 @@
     <DockPanel>
         <ToolBarTray DockPanel.Dock="Top" IsLocked="True">
             <ToolBar>
-                <Button Command="{Binding RefreshCommand}" ToolTip="Refresh (Ctrl+S)" Focusable="False">
+                <Button Command="{Binding RefreshCommand}" ToolTip="Refresh (Ctrl+Shift+R)" Focusable="False">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2,2,2,2" VerticalAlignment="Top" Source="../Resources/Refresh_16x.png" />
                         <TextBlock Text="Refresh" Margin="2,2,2,2" VerticalAlignment="Center" />
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding SaveCommand}" ToolTip="Save (Ctrl+S)" Focusable="False">
+                <Button Command="{Binding SaveCommand}" ToolTip="Save (Ctrl+Shift+S)" Focusable="False">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2,2,2,2" VerticalAlignment="Top" Source="../Resources/Save_16x.png" />
                         <TextBlock Margin="2,2,2,2" VerticalAlignment="Center">
