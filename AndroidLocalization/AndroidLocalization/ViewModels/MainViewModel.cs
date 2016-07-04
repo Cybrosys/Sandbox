@@ -60,7 +60,7 @@ namespace AndroidLocalization.ViewModels
         {
             using (new BusyContext(this))
             {
-                if (_dataTable.DataSet.HasChanges())
+                if (_dataTable != null && _dataTable.DataSet.HasChanges())
                 {
                     if (MessageBox.Show("You have unsaved changes, continue?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
                         return;
