@@ -30,9 +30,7 @@ namespace AndroidLocalization.Views
         {
             var textColumn = e.Column as DataGridTextColumn;
             if (textColumn == null) return;
-
-            if (textColumn.Header.ToString() == "Key")
-                textColumn.FontWeight = FontWeights.Bold;
+            textColumn.Width = new DataGridLength(200, DataGridLengthUnitType.Pixel);
 
             var style = new Style(typeof(DataGridCell));
             textColumn.CellStyle = style;

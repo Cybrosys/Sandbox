@@ -42,11 +42,13 @@
             </ToolBar>
         </ToolBarTray>
         <DataGrid ItemsSource="{Binding DataTable}"
-                  RowHeaderWidth="16"
+                  RowHeaderWidth="10"
                   FrozenColumnCount="1"
                   CanUserResizeRows="False"
                   CanUserSortColumns="True"
+                  HorizontalGridLinesBrush="Gainsboro"
+                  VerticalGridLinesBrush="Gainsboro"
                   AutoGeneratingColumn="DataGrid_AutoGeneratingColumn"
-                  PreviewKeyDown="DataGrid_PreviewKeyDown"/>
+                  PreviewKeyDown="DataGrid_PreviewKeyDown" />
     </DockPanel>
 </UserControl>

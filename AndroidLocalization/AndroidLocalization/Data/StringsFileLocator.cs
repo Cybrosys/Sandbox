@@ -18,8 +18,18 @@ namespace AndroidLocalization.Data
         {
             if (string.IsNullOrWhiteSpace(directoryPath)) throw new ArgumentNullException(nameof(directoryPath));
             var potentialFilePaths = Directory.GetFiles(directoryPath, "Strings.xml", SearchOption.AllDirectories);
-            var validFilePaths = potentialFilePaths.Where(filePath => new DirectoryInfo(Path.GetDirectoryName(filePath)).Name.ToLower().StartsWith("values")).ToList();
+            var validFilePaths = potentialFilePaths.Where(IsValidFilePath).ToList();
             return validFilePaths;
+        }
+
+        private bool IsValidFilePath(string filePath)
+        {
+            var valuesDirectoryPath = Path.GetDirectoryName(filePath);
+            if (!new DirectoryInfo(valuesDirectoryPath).Name.ToLower().StartsWith("values"))
+                return false;
+
+            var resourcesDirectoryPath = Path.Combine(valuesDirectoryPath, "../");
+            return new DirectoryInfo(resourcesDirectoryPath).Name.ToLower() == "resources";
         }
     }
 }

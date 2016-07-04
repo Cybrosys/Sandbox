@@ -16,9 +16,9 @@ namespace AndroidLocalization.Test
     public partial class StringsFileLoaderTest
     {
         [Test]
-        [TestCase("TestData\\values\\Strings.xml", "")]
-        [TestCase("TestData\\values-sv\\Strings.xml", "sv")]
-        [TestCase("TestData\\values-de\\Strings.xml", "de")]
+        [TestCase("TestData\\Resources\\values\\Strings.xml", "")]
+        [TestCase("TestData\\Resources\\values-sv\\Strings.xml", "sv")]
+        [TestCase("TestData\\Resources\\values-de\\Strings.xml", "de")]
         public void Load_returns_country_code_and_all_rows(string relativePath, string expectedCountryCode)
         {
             // Arrange

@@ -76,9 +76,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestData\values-de\Strings.xml" />
-    <Content Include="TestData\values-sv\Strings.xml" />
-    <Content Include="TestData\values\Strings.xml" />
+    <Content Include="TestData\Resources\values-de\Strings.xml" />
+    <Content Include="TestData\Resources\values-sv\Strings.xml" />
+    <Content Include="TestData\Resources\values\Strings.xml" />
   </ItemGroup>
   <ItemGroup />
   <Choose>

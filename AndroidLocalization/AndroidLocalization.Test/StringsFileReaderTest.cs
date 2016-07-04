@@ -12,7 +12,7 @@ namespace AndroidLocalization.Test
     public partial class StringsFileReaderTest
     {
         [Test]
-        [TestCase("TestData\\values\\Strings.xml")]
+        [TestCase("TestData\\Resources\\values\\Strings.xml")]
         public void Read_all_returns_all_rows(string relativePath)
         {
             // Arrange
