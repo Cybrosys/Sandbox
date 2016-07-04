@@ -9,6 +9,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace AndroidLocalization.ViewModels
@@ -43,17 +44,28 @@ namespace AndroidLocalization.ViewModels
         private ICommand _saveCommand;
 
         public ICommand RefreshCommand => _refreshCommand ?? (_refreshCommand = new RelayCommand(Load, () => !IsBusy && !string.IsNullOrWhiteSpace(_directoryPath)));
-        public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new RelayCommand(Save, () => !IsBusy && _stringsFiles != null && _stringsFiles.Count > 0));
+        public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new RelayCommand(Save, () => !IsBusy && _stringsFiles != null && _stringsFiles.Count > 0 && _dataTable != null));
 
         public MainViewModel()
         {
-            _manager = new LocalizationManager(new StringsFileLocator(), new StringsFileLoader(new StringsFileReader()), new StringsFileDataTableBuilder());
+            _manager = new LocalizationManager(
+                new StringsFileLocator(),
+                new StringsFileLoader(new StringsFileReader()),
+                new StringsFileDataTableBuilder(),
+                new DataTableStringsFileMapper(),
+                new StringsFileSaver(new StringsFileWriter()));
         }
 
         private void Load()
         {
             using (new BusyContext(this))
             {
+                if (_dataTable.DataSet.HasChanges())
+                {
+                    if (MessageBox.Show("You have unsaved changes, continue?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                        return;
+                }
+
                 if (string.IsNullOrWhiteSpace(_directoryPath)) return;
                 _stringsFiles = _manager.GetStringsFiles(_directoryPath);
                 DataTable = _manager.CreateDataTable(_stringsFiles);
@@ -64,7 +76,8 @@ namespace AndroidLocalization.ViewModels
         {
             using (new BusyContext(this))
             {
-                // TODO
+                _dataTable.AcceptChanges();
+                _manager.SaveToFiles(_dataTable, _stringsFiles);
             }
         }
     }

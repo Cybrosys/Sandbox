@@ -70,11 +70,14 @@
     <DeployExtension>True</DeployExtension>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Data\DataTableStringsFileMapper.cs" />
     <Compile Include="Data\StringsFileDataTableBuilder.cs" />
     <Compile Include="Data\StringsFileLoader.cs" />
     <Compile Include="Data\StringsFile.cs" />
     <Compile Include="Data\StringsFileLocator.cs" />
     <Compile Include="Data\StringsFileReader.cs" />
+    <Compile Include="Data\StringsFileSaver.cs" />
+    <Compile Include="Data\StringsFileWriter.cs" />
     <Compile Include="Managers\LocalizationManager.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="MainWindow.cs" />
