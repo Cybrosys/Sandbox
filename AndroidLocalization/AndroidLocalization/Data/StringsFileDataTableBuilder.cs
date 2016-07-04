@@ -42,10 +42,22 @@ namespace AndroidLocalization.Data
 
         private List<DataColumn> GetColumns(List<StringsFile> stringsFiles)
         {
-            return stringsFiles.Select(file => new DataColumn(GetColumnNameFromLanguageCode(file.LanguageCode), typeof(string))).ToList();
+            return stringsFiles.Select(file =>
+            {
+                var nameOrDefault = GetNameFromLanguageCode(file.LanguageCode);
+                var languageCodeOrDefault = string.IsNullOrWhiteSpace(file.LanguageCode) ? nameOrDefault : file.LanguageCode;
+
+                var column = new DataColumn
+                {
+                    ColumnName = nameOrDefault,
+                    DataType = typeof(string)
+                };
+                column.ExtendedProperties.Add(nameof(file.LanguageCode), languageCodeOrDefault);
+                return column;
+            }).ToList();
         }
 
-        private string GetColumnNameFromLanguageCode(string countryCode)
+        private string GetNameFromLanguageCode(string countryCode)
         {
             if (string.IsNullOrWhiteSpace(countryCode)) return "Default";
             return new CultureInfo(countryCode).EnglishName;
@@ -53,7 +65,7 @@ namespace AndroidLocalization.Data
 
         private string[] GetRowValuesForKey(string key, List<StringsFile> stringsFiles)
         {
-            return new[] { key }.Concat(stringsFiles.Select(file => file.Rows.ContainsKey(key) ? file.Rows[key] : null)).ToArray();
+            return new[] { key }.Concat(stringsFiles.Select(file => file.Rows.ContainsKey(key) ? file.Rows[key] : string.Empty)).ToArray();
         }
     }
 }

@@ -24,8 +24,13 @@ namespace AndroidLocalization.Data
 
         private DataColumn FindColumn(DataTable dataTable, StringsFile stringsFile)
         {
-            string name = string.IsNullOrWhiteSpace(stringsFile.LanguageCode) ? "Default" : stringsFile.LanguageCode;
-            return dataTable.Columns[name];
+            string languageCodeOrDefault = string.IsNullOrWhiteSpace(stringsFile.LanguageCode) ? "Default" : stringsFile.LanguageCode;
+            foreach (DataColumn column in dataTable.Columns)
+            {
+                if ((string)column.ExtendedProperties[nameof(stringsFile.LanguageCode)] == languageCodeOrDefault)
+                    return column;
+            }
+            return null;
         }
 
         private void Map(DataColumn column, StringsFile stringsFile)
@@ -38,6 +43,9 @@ namespace AndroidLocalization.Data
             {
                 var key = row[0]?.ToString();
                 var value = row[column]?.ToString();
+                if (string.IsNullOrWhiteSpace(key) || string.IsNullOrWhiteSpace(value))
+                    continue;
+                
                 stringsFile.Rows.Add(key, value);
             }
         }

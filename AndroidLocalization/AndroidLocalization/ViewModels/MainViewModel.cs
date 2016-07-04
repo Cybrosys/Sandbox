@@ -22,6 +22,7 @@ namespace AndroidLocalization.ViewModels
         private string _directoryPath;
         private List<StringsFile> _stringsFiles;
         private DataTable _dataTable;
+        private bool _hasUnsavedChanges;
 
         public string DirectoryPath
         {
@@ -33,11 +34,32 @@ namespace AndroidLocalization.ViewModels
                 Load();
             }
         }
-
         public DataTable DataTable
         {
             get { return _dataTable; }
-            set { Set(ref _dataTable, value); }
+            set
+            {
+                if (_dataTable != null)
+                {
+                    _dataTable.RowChanged -= _dataTable_RowChanged;
+                    _dataTable.RowDeleted -= _dataTable_RowDeleted;
+                }
+
+                if (Set(ref _dataTable, value))
+                {
+                    if (_dataTable != null)
+                    {
+                        _dataTable.RowChanged += _dataTable_RowChanged;
+                        _dataTable.RowDeleted += _dataTable_RowDeleted;
+                    }
+                }
+            }
+        }
+
+        public bool HasUnsavedChanges
+        {
+            get { return _hasUnsavedChanges; }
+            private set { Set(ref _hasUnsavedChanges, value); }
         }
 
         private ICommand _refreshCommand;
@@ -60,15 +82,13 @@ namespace AndroidLocalization.ViewModels
         {
             using (new BusyContext(this))
             {
-                if (_dataTable != null && _dataTable.DataSet.HasChanges())
-                {
-                    if (MessageBox.Show("You have unsaved changes, continue?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
-                        return;
-                }
-
                 if (string.IsNullOrWhiteSpace(_directoryPath)) return;
+                if (HasUnsavedChanges && MessageBox.Show("You have unsaved changes, continue?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No) return;
+                HasUnsavedChanges = false;
                 _stringsFiles = _manager.GetStringsFiles(_directoryPath);
-                DataTable = _manager.CreateDataTable(_stringsFiles);
+                var dataTable = _manager.CreateDataTable(_stringsFiles);
+                dataTable.AcceptChanges();
+                DataTable = dataTable;
             }
         }
 
@@ -78,7 +98,18 @@ namespace AndroidLocalization.ViewModels
             {
                 _dataTable.AcceptChanges();
                 _manager.SaveToFiles(_dataTable, _stringsFiles);
+                HasUnsavedChanges = false;
             }
+        }
+
+        private void _dataTable_RowChanged(object sender, DataRowChangeEventArgs e)
+        {
+            HasUnsavedChanges = _dataTable.GetChanges() != null;
+        }
+        
+        private void _dataTable_RowDeleted(object sender, DataRowChangeEventArgs e)
+        {
+            HasUnsavedChanges = _dataTable.GetChanges() != null;
         }
     }
 }

@@ -37,18 +37,6 @@ namespace AndroidLocalization
             // we are not calling Dispose on this object. This is because ToolWindowPane calls Dispose on
             // the object returned by the Content property.
             Content = new Views.MainWindowControl();
-            //{
-            //    DataContext = new MainViewModel(GetSolutionDirectory())
-            //};
         }
-
-        //public string GetSolutionDirectory()
-        //{
-        //    var service = (IVsSolution)GetService(typeof(SVsSolution));
-        //    if (service == null) return string.Empty;
-        //    string solutionDirectory, solutionFile, userOptsFile;
-        //    service.GetSolutionInfo(out solutionDirectory, out solutionFile, out userOptsFile);
-        //    return solutionDirectory;
-        //}
     }
 }

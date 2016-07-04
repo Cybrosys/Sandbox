@@ -9,23 +9,44 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
              Name="MyToolWindow">
+    <UserControl.InputBindings>
+        <KeyBinding Key="R" Modifiers="Ctrl+Shift" Command="{Binding RefreshCommand}" />
+        <KeyBinding Key="S" Modifiers="Ctrl+Shift" Command="{Binding SaveCommand}" />
+    </UserControl.InputBindings>
     <DockPanel>
         <ToolBarTray DockPanel.Dock="Top" IsLocked="True">
             <ToolBar>
-                <Button Command="{Binding RefreshCommand}" ToolTip="Refresh" Focusable="False">
+                <Button Command="{Binding RefreshCommand}" ToolTip="Refresh (Ctrl+S)" Focusable="False">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2,2,2,2" VerticalAlignment="Top" Source="../Resources/Refresh_16x.png" />
                         <TextBlock Text="Refresh" Margin="2,2,2,2" VerticalAlignment="Center" />
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding SaveCommand}" ToolTip="Save" Focusable="False">
+                <Button Command="{Binding SaveCommand}" ToolTip="Save (Ctrl+S)" Focusable="False">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2,2,2,2" VerticalAlignment="Top" Source="../Resources/Save_16x.png" />
-                        <TextBlock Text="Save" Margin="2,2,2,2" VerticalAlignment="Center" />
+                        <TextBlock Margin="2,2,2,2" VerticalAlignment="Center">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Text" Value="Save" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=HasUnsavedChanges}" Value="True">
+                                            <Setter Property="Text" Value="Save*" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
                     </StackPanel>
                 </Button>
             </ToolBar>
         </ToolBarTray>
-        <DataGrid ItemsSource="{Binding DataTable}" FrozenColumnCount="1" CanUserSortColumns="True" SelectionMode="Single" SelectionUnit="Cell" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" />
+        <DataGrid ItemsSource="{Binding DataTable}"
+                  RowHeaderWidth="16"
+                  FrozenColumnCount="1"
+                  CanUserResizeRows="False"
+                  CanUserSortColumns="True"
+                  AutoGeneratingColumn="DataGrid_AutoGeneratingColumn"
+                  PreviewKeyDown="DataGrid_PreviewKeyDown"/>
     </DockPanel>
 </UserControl>
