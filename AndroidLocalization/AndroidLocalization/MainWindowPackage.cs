@@ -15,6 +15,8 @@ using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.Win32;
+using AndroidLocalization.ViewModels;
+using System.Windows;
 
 namespace AndroidLocalization
 {
@@ -41,8 +43,11 @@ namespace AndroidLocalization
     [ProvideToolWindow(typeof(MainWindow))]
     [Guid(MainWindowPackage.PackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
-    public sealed class MainWindowPackage : Package
+    public sealed class MainWindowPackage : Package, IVsSolutionEvents
     {
+        private IVsSolution2 _solution;
+        private uint _solutionEventsCookie;
+
         /// <summary>
         /// MainWindowPackage GUID string.
         /// </summary>
@@ -69,8 +74,75 @@ namespace AndroidLocalization
         {
             MainWindowCommand.Initialize(this);
             base.Initialize();
+
+            _solution = ServiceProvider.GlobalProvider.GetService(typeof(SVsSolution)) as IVsSolution2;
+            if (_solution != null)
+                _solution.AdviseSolutionEvents(this, out _solutionEventsCookie);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            if (_solution != null && _solutionEventsCookie != 0)
+            {
+                _solution.UnadviseSolutionEvents(_solutionEventsCookie);
+                _solution = null;
+            }
         }
 
         #endregion
+
+        public int OnQueryCloseProject(IVsHierarchy pHierarchy, int fRemoving, ref int pfCancel) => VSConstants.S_OK;
+        public int OnQueryCloseSolution(object pUnkReserved, ref int pfCancel)
+        {
+            ToolWindowPane window = FindToolWindow(typeof(MainWindow), 0, false);
+            if (window != null)
+            {
+                var mainWindow = (Views.MainWindowControl)window.Content;
+                var viewModel = mainWindow.DataContext as MainViewModel;
+                if (viewModel != null)
+                {
+                    if (viewModel.HasUnsavedChanges)
+                    {
+                        var result = MessageBox.Show("Do you want to save your changes?", "Android Localization", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+                        if (result == MessageBoxResult.Cancel)
+                            pfCancel = 1;
+                        else if (result == MessageBoxResult.Yes)
+                            viewModel.SaveCommand.Execute(null);
+                    }
+                    if (pfCancel != 1)
+                        viewModel.DirectoryPath = null;
+                }
+            }
+            return VSConstants.S_OK;
+        }
+        public int OnQueryUnloadProject(IVsHierarchy pRealHierarchy, ref int pfCancel) => VSConstants.S_OK;
+
+        public int OnBeforeCloseProject(IVsHierarchy pHierarchy, int fRemoved) => VSConstants.S_OK;
+        public int OnBeforeCloseSolution(object pUnkReserved) => VSConstants.S_OK;
+        public int OnBeforeUnloadProject(IVsHierarchy pRealHierarchy, IVsHierarchy pStubHierarchy) => VSConstants.S_OK;
+
+        public int OnAfterCloseSolution(object pUnkReserved) => VSConstants.S_OK;
+        public int OnAfterLoadProject(IVsHierarchy pStubHierarchy, IVsHierarchy pRealHierarchy) => VSConstants.S_OK;
+        public int OnAfterOpenProject(IVsHierarchy pHierarchy, int fAdded) => VSConstants.S_OK;
+        public int OnAfterOpenSolution(object pUnkReserved, int fNewSolution)
+        {
+            ToolWindowPane window = FindToolWindow(typeof(MainWindow), 0, false);
+            if (window != null)
+            {
+                var mainWindow = (Views.MainWindowControl)window.Content;
+                var viewModel = mainWindow.DataContext as MainViewModel;
+                if (viewModel == null)
+                {
+                    viewModel = new MainViewModel();
+                    mainWindow.DataContext = viewModel;
+                }
+                string solutionDirectory, solutionFile, userOptsFile;
+                _solution.GetSolutionInfo(out solutionDirectory, out solutionFile, out userOptsFile);
+                viewModel.DirectoryPath = solutionDirectory;
+            }
+            return VSConstants.S_OK;
+        }
     }
 }

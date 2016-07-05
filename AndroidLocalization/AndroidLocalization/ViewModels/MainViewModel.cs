@@ -52,6 +52,7 @@ namespace AndroidLocalization.ViewModels
                         _dataTable.RowChanged += _dataTable_RowChanged;
                         _dataTable.RowDeleted += _dataTable_RowDeleted;
                     }
+                    HasUnsavedChanges = _dataTable?.GetChanges() != null;
                 }
             }
         }
@@ -83,8 +84,13 @@ namespace AndroidLocalization.ViewModels
             using (new BusyContext(this))
             {
                 if (string.IsNullOrWhiteSpace(_directoryPath)) return;
-                if (HasUnsavedChanges && MessageBox.Show("You have unsaved changes, continue?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No) return;
-                HasUnsavedChanges = false;
+                if (HasUnsavedChanges)
+                {
+                    var result = MessageBox.Show("Do you want to save your changes before continuing?", "Android Localization", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Cancel) return;
+                    else if (result == MessageBoxResult.Yes)
+                        Save();
+                }
                 _stringsFiles = _manager.GetStringsFiles(_directoryPath);
                 var dataTable = _manager.CreateDataTable(_stringsFiles);
                 dataTable.AcceptChanges();

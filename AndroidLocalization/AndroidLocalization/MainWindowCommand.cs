@@ -116,7 +116,7 @@ namespace AndroidLocalization
 
         private string GetSolutionDirectory()
         {
-            var service = (IVsSolution)ServiceProvider.GetService(typeof(SVsSolution));
+            var service = (IVsSolution2)ServiceProvider.GetService(typeof(SVsSolution));
             if (service == null) return string.Empty;
             string solutionDirectory, solutionFile, userOptsFile;
             service.GetSolutionInfo(out solutionDirectory, out solutionFile, out userOptsFile);
