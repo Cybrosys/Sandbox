@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace AndroidLocalization.Data
@@ -11,6 +12,7 @@ namespace AndroidLocalization.Data
     public interface IStringsFileLoader
     {
         StringsFile Load(string filePath);
+        Task<StringsFile> LoadAsync(string filePath);
     }
 
     public class StringsFileLoader : IStringsFileLoader
@@ -31,6 +33,18 @@ namespace AndroidLocalization.Data
                 FilePath = filePath,
                 LanguageCode = languageCode,
                 Rows = _reader.ReadAll(XDocument.Load(filePath))
+            };
+        }
+
+        async public Task<StringsFile> LoadAsync(string filePath)
+        {
+            var loadTask = Task.Run(() => XDocument.Load(filePath));
+            var languageCode = GetLanguageCodeFromFilePath(filePath);
+            return new StringsFile
+            {
+                FilePath = filePath,
+                LanguageCode = languageCode,
+                Rows = _reader.ReadAll(await loadTask.ConfigureAwait(false))
             };
         }
 

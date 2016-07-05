@@ -18,7 +18,7 @@ namespace AndroidLocalization.Test
         {
             // Arrange
             // Act
-            var result = _locator.GetFilePaths(_directoryName);
+            var result = _locator.GetFilePaths(_directoryName).ToList();
 
             // Assert
             Assert.That(result, Is.Not.Null.And.Not.Empty);

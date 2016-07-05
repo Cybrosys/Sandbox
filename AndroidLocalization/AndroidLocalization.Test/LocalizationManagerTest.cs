@@ -27,6 +27,18 @@ namespace AndroidLocalization.Test
         }
 
         [Test]
+        async public Task Get_strings_files_async_returns_all_strings_files()
+        {
+            // Arrange
+            // Act
+            var result = await _manager.GetStringsFilesAsync(_directoryName).ConfigureAwait(false);
+
+            // Assert
+            Assert.That(result, Is.Not.Empty);
+            Assert.That(result.Count, Is.EqualTo(3));
+        }
+
+        [Test]
         public void Create_data_table_returns_populated_data_table()
         {
             // Arrange

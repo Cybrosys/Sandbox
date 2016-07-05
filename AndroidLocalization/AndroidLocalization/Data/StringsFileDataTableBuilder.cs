@@ -34,7 +34,7 @@ namespace AndroidLocalization.Data
         private DataTable CreateDataTable(List<string> keys, List<StringsFile> stringsFiles)
         {
             var table = new DataTable();
-            table.Columns.Add(new DataColumn("Key") { AllowDBNull = false, Unique = true });
+            table.Columns.Add(new DataColumn("Key", typeof(string), string.Empty) { AllowDBNull = false, Unique = true });
             GetColumns(stringsFiles).ForEach(table.Columns.Add);
             keys.ForEach(key => table.Rows.Add(GetRowValuesForKey(key, stringsFiles)));
             return table;
@@ -50,7 +50,8 @@ namespace AndroidLocalization.Data
                 var column = new DataColumn
                 {
                     ColumnName = nameOrDefault,
-                    DataType = typeof(string)
+                    DataType = typeof(string),
+                    DefaultValue = string.Empty
                 };
                 column.ExtendedProperties.Add(nameof(file.LanguageCode), languageCodeOrDefault);
                 return column;

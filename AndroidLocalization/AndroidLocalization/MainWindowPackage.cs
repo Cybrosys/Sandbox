@@ -141,6 +141,8 @@ namespace AndroidLocalization
                 string solutionDirectory, solutionFile, userOptsFile;
                 _solution.GetSolutionInfo(out solutionDirectory, out solutionFile, out userOptsFile);
                 viewModel.DirectoryPath = solutionDirectory;
+                if (viewModel.RefreshCommand.CanExecute(null))
+                    viewModel.RefreshCommand.Execute(null);
             }
             return VSConstants.S_OK;
         }

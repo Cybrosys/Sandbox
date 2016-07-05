@@ -41,6 +41,17 @@ namespace AndroidLocalization.Managers
             return stringsFiles;
         }
 
+        async public Task<List<StringsFile>> GetStringsFilesAsync(string directoryPath)
+        {
+            if (string.IsNullOrWhiteSpace(directoryPath)) throw new ArgumentNullException(nameof(directoryPath));
+            var filePaths = _locator.GetFilePaths(directoryPath);
+            var list = new List<StringsFile>();
+            foreach (var filePath in filePaths)
+                list.Add(await _loader.LoadAsync(filePath).ConfigureAwait(false));
+            list.TrimExcess();
+            return list;
+        }
+
         public void SaveToFiles(DataTable dataTable, List<StringsFile> stringsFiles)
         {
             if (dataTable == null) throw new ArgumentNullException(nameof(dataTable));
@@ -48,6 +59,18 @@ namespace AndroidLocalization.Managers
             if (stringsFiles.Count == 0) return;
             _mapper.Map(dataTable, stringsFiles);
             stringsFiles.ForEach(_saver.Save);
+        }
+
+        async public Task SaveToFilesAsync(DataTable dataTable, List<StringsFile> stringsFiles)
+        {
+            if (dataTable == null) throw new ArgumentNullException(nameof(dataTable));
+            if (stringsFiles == null) throw new ArgumentNullException(nameof(stringsFiles));
+            if (stringsFiles.Count == 0) return;
+            _mapper.Map(dataTable, stringsFiles);
+            var tasks = new List<Task>();
+            foreach (var file in stringsFiles)
+                tasks.Add(_saver.SaveAsync(file));
+            await Task.WhenAll(tasks).ConfigureAwait(false);
         }
     }
 }

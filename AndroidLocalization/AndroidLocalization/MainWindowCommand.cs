@@ -109,6 +109,8 @@ namespace AndroidLocalization
                 mainWindow.DataContext = viewModel;
             }
             viewModel.DirectoryPath = GetSolutionDirectory();
+            if (viewModel.RefreshCommand.CanExecute(null))
+                viewModel.RefreshCommand.Execute(null);
 
             IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
             Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());

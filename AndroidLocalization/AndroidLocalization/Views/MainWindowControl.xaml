@@ -9,20 +9,16 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
              Name="MyToolWindow">
-    <UserControl.InputBindings>
-        <KeyBinding Key="R" Modifiers="Ctrl+Shift" Command="{Binding RefreshCommand}" />
-        <KeyBinding Key="S" Modifiers="Ctrl+Shift" Command="{Binding SaveCommand}" />
-    </UserControl.InputBindings>
     <DockPanel>
         <ToolBarTray DockPanel.Dock="Top" IsLocked="True">
             <ToolBar>
-                <Button Command="{Binding RefreshCommand}" ToolTip="Refresh (Ctrl+Shift+R)" Focusable="False">
+                <Button Command="{Binding RefreshCommand}" ToolTip="Refresh" Focusable="False">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2,2,2,2" VerticalAlignment="Top" Source="../Resources/Refresh_16x.png" />
                         <TextBlock Text="Refresh" Margin="2,2,2,2" VerticalAlignment="Center" />
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding SaveCommand}" ToolTip="Save (Ctrl+Shift+S)" Focusable="False">
+                <Button Command="{Binding SaveCommand}" ToolTip="Save" Focusable="False">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2,2,2,2" VerticalAlignment="Top" Source="../Resources/Save_16x.png" />
                         <TextBlock Margin="2,2,2,2" VerticalAlignment="Center">
@@ -42,6 +38,7 @@
             </ToolBar>
         </ToolBarTray>
         <DataGrid ItemsSource="{Binding DataTable}"
+                  FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
                   RowHeaderWidth="10"
                   FrozenColumnCount="1"
                   CanUserResizeRows="False"
@@ -49,6 +46,10 @@
                   HorizontalGridLinesBrush="Gainsboro"
                   VerticalGridLinesBrush="Gainsboro"
                   AutoGeneratingColumn="DataGrid_AutoGeneratingColumn"
-                  PreviewKeyDown="DataGrid_PreviewKeyDown" />
+                  PreviewKeyDown="DataGrid_PreviewKeyDown">
+            <DataGrid.RowValidationRules>
+                
+            </DataGrid.RowValidationRules>
+        </DataGrid>
     </DockPanel>
 </UserControl>

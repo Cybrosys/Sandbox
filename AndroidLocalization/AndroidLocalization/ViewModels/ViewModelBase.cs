@@ -23,8 +23,14 @@ namespace AndroidLocalization.ViewModels
                     if (_isBusyCounter < 0) _isBusyCounter = 0;
                     else if (_isBusyCounter > 0) return;
                 }
-                Set(ref _isBusy, value);
+                if (Set(ref _isBusy, value))
+                    OnIsBusyChanged();
             }
+        }
+
+        protected virtual void OnIsBusyChanged()
+        {
+
         }
 
         protected class BusyContext : IDisposable

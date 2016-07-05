@@ -33,6 +33,25 @@ namespace AndroidLocalization.Test
             Assert.That(result.Rows, Is.Not.Empty);
             Assert.That(result.Rows.Count, Is.EqualTo(5));
         }
+
+        [Test]
+        [TestCase("TestData\\Resources\\values\\Strings.xml", "")]
+        [TestCase("TestData\\Resources\\values-sv\\Strings.xml", "sv")]
+        [TestCase("TestData\\Resources\\values-de\\Strings.xml", "de")]
+        async public Task Load_async_returns_country_code_and_all_rows(string relativePath, string expectedCountryCode)
+        {
+            // Arrange
+            var filePath = Path.Combine(_directoryName, relativePath);
+
+            // Act
+            var result = await _loader.LoadAsync(filePath).ConfigureAwait(false);
+
+            // Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.LanguageCode, Is.EqualTo(expectedCountryCode));
+            Assert.That(result.Rows, Is.Not.Empty);
+            Assert.That(result.Rows.Count, Is.EqualTo(5));
+        }
     }
 
     public partial class StringsFileLoaderTest

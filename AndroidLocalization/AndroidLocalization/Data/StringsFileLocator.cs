@@ -9,17 +9,19 @@ namespace AndroidLocalization.Data
 {
     public interface IStringsFileLocator
     {
-        List<string> GetFilePaths(string directoryPath);
+        IEnumerable<string> GetFilePaths(string directoryPath);
     }
 
     public class StringsFileLocator : IStringsFileLocator
     {
-        public List<string> GetFilePaths(string directoryPath)
+        public IEnumerable<string> GetFilePaths(string directoryPath)
         {
             if (string.IsNullOrWhiteSpace(directoryPath)) throw new ArgumentNullException(nameof(directoryPath));
-            var potentialFilePaths = Directory.GetFiles(directoryPath, "Strings.xml", SearchOption.AllDirectories);
-            var validFilePaths = potentialFilePaths.Where(IsValidFilePath).ToList();
-            return validFilePaths;
+
+            var filePaths = from filePath in Directory.EnumerateFiles(directoryPath, "Strings.xml", SearchOption.AllDirectories)
+                            where IsValidFilePath(filePath)
+                            select filePath;
+            return filePaths;
         }
 
         private bool IsValidFilePath(string filePath)

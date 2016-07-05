@@ -31,9 +31,9 @@ namespace AndroidLocalization.ViewModels
                 _directoryPath = value;
                 _stringsFiles = null;
                 DataTable = null;
-                Load();
             }
         }
+
         public DataTable DataTable
         {
             get { return _dataTable; }
@@ -66,8 +66,8 @@ namespace AndroidLocalization.ViewModels
         private ICommand _refreshCommand;
         private ICommand _saveCommand;
 
-        public ICommand RefreshCommand => _refreshCommand ?? (_refreshCommand = new RelayCommand(Load, () => !IsBusy && !string.IsNullOrWhiteSpace(_directoryPath)));
-        public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new RelayCommand(Save, () => !IsBusy && _stringsFiles != null && _stringsFiles.Count > 0 && _dataTable != null));
+        public ICommand RefreshCommand => _refreshCommand ?? (_refreshCommand = new RelayCommand(async () => await LoadAsync(), () => !IsBusy && !string.IsNullOrWhiteSpace(_directoryPath)));
+        public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new RelayCommand(async () => await SaveAsync(), () => !IsBusy && _stringsFiles != null && _stringsFiles.Count > 0 && _dataTable != null));
 
         public MainViewModel()
         {
@@ -79,7 +79,13 @@ namespace AndroidLocalization.ViewModels
                 new StringsFileSaver(new StringsFileWriter()));
         }
 
-        private void Load()
+        protected override void OnIsBusyChanged()
+        {
+            ((RelayCommand)RefreshCommand).RaiseCanExecuteChanged();
+            ((RelayCommand)SaveCommand).RaiseCanExecuteChanged();
+        }
+
+        async private Task LoadAsync()
         {
             using (new BusyContext(this))
             {
@@ -89,21 +95,21 @@ namespace AndroidLocalization.ViewModels
                     var result = MessageBox.Show("Do you want to save your changes before continuing?", "Android Localization", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
                     if (result == MessageBoxResult.Cancel) return;
                     else if (result == MessageBoxResult.Yes)
-                        Save();
+                        await SaveAsync();
                 }
-                _stringsFiles = _manager.GetStringsFiles(_directoryPath);
+                _stringsFiles = await _manager.GetStringsFilesAsync(_directoryPath);
                 var dataTable = _manager.CreateDataTable(_stringsFiles);
                 dataTable.AcceptChanges();
                 DataTable = dataTable;
             }
         }
 
-        private void Save()
+        async private Task SaveAsync()
         {
             using (new BusyContext(this))
             {
                 _dataTable.AcceptChanges();
-                _manager.SaveToFiles(_dataTable, _stringsFiles);
+                await _manager.SaveToFilesAsync(_dataTable, _stringsFiles);
                 HasUnsavedChanges = false;
             }
         }
