@@ -6,9 +6,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceRoot}\\src\\bin\\Debug\\netcoreapp1.1\\Lottery.dll",
+            "program": "${workspaceRoot}\\src\\Lottery\\bin\\Debug\\netcoreapp1.1\\Lottery.dll",
             "args": [],
-            "cwd": "${workspaceRoot}\\src",
+            "cwd": "${workspaceRoot}\\src\\Lottery",
             "externalConsole": false,
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart"
