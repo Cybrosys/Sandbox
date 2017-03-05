@@ -11,20 +11,20 @@ namespace Lottery.Data
             _random = random;
         }
 
-        public IRangeNumber Generate(byte minValue, byte maxValue)
+        public IRangeNumber Generate(int minValue, int maxValue)
         {
             return Generate(minValue, maxValue, minValue, maxValue);
         }
 
-        public IRangeNumber Generate(byte minValue, byte maxValue, byte minRangeValue, byte maxRangeValue)
+        public IRangeNumber Generate(int minValue, int maxValue, int minRangeValue, int maxRangeValue)
         {
             Assert(minValue, maxValue, minRangeValue, maxRangeValue);
 
-            var value = (byte)_random.Next(minValue, maxValue);
+            var value = (int)_random.Next(minValue, maxValue);
 
             var normalizedRangeMaxValue = maxRangeValue - minRangeValue;
             var normalizedValue = value - minRangeValue;
-            var normalizedMiddleValue = (byte)Math.Round(normalizedRangeMaxValue / 2D);
+            var normalizedMiddleValue = (int)Math.Floor(normalizedRangeMaxValue / 2D);
 
             var isOdd = value % 2 != 0;
             var canBeMiddle = normalizedRangeMaxValue % 2 == 0;
@@ -44,7 +44,7 @@ namespace Lottery.Data
             return number;
         }
 
-        private void Assert(byte minValue, byte maxValue, byte minRangeValue, byte maxRangeValue)
+        private void Assert(int minValue, int maxValue, int minRangeValue, int maxRangeValue)
         {
             if (minValue < 0) throw new ArgumentOutOfRangeException(nameof(minValue));
             if (maxValue < minValue) throw new ArgumentOutOfRangeException(nameof(maxValue));

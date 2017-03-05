@@ -2,7 +2,7 @@ namespace Lottery
 {
     public interface IRangeNumber
     {
-        byte Value { get; }
+        int Value { get; }
         bool IsOdd { get; }
         bool IsEven { get; }
         bool IsUpper { get; }
