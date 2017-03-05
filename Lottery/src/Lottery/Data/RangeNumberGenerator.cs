@@ -2,7 +2,7 @@ using System;
 
 namespace Lottery.Data
 {
-    public class RangeNumberGenerator
+    public class RangeNumberGenerator : IRangeNumberGenerator
     {   
         private readonly IRandom _random;
 
