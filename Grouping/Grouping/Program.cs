@@ -35,6 +35,11 @@ ObservableGroupingCollection
             numbers.ForEach(orderedNumbers.Add);
             foreach (var item in orderedNumbers)
                 Console.WriteLine(item);
+
+            Console.WriteLine();
+            orderedNumbers[9] = 0;
+            foreach (var item in orderedNumbers)
+                Console.WriteLine(item);
         }
     }
 }
