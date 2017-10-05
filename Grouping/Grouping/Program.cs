@@ -17,14 +17,24 @@ ObservableGroupingCollection
 	on their keys.
 	Additional events are to notify about when items are added/removed from/to groups,
 	and moved between groups.
-             */
-
-            Expression<Func<DateTime, int>> x = item => item.Minute;
-            var func = x.Compile();
-            Console.WriteLine(func(DateTime.Now));
-
-            var collection = new ObservableOrderedCollection<DateTime, int>(new DateTime[] { }, item => item.Minute);
+            */
             
+            var numbers = new List<int>(10);
+            var random = new Random();
+            for (int i = 0; i < 10; ++i)
+                numbers.Add(random.Next() % 10);
+            numbers.ForEach(Console.WriteLine);
+
+            Console.WriteLine();
+            var orderedNumbers = new ObservableOrderedCollection<int>(numbers);
+            foreach (var item in orderedNumbers)
+                Console.WriteLine(item);
+
+            Console.WriteLine();
+            orderedNumbers = new ObservableOrderedCollection<int>();
+            numbers.ForEach(orderedNumbers.Add);
+            foreach (var item in orderedNumbers)
+                Console.WriteLine(item);
         }
     }
 }
