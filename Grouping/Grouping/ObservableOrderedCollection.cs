@@ -58,7 +58,6 @@ namespace Grouping
             _comparer = new PropertyComparer<T>(orderBy);
         }
 
-
         protected override void InsertItem(int index, T item)
         {
             // Since this method is used by the normal Add method, we'll help it find a valid index.

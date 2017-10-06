@@ -14,12 +14,18 @@ namespace Grouping
     {
         static void Main(string[] args)
         {
+            var item1 = new SuperObjectWithAdvancedIndex(3);
+            var item2 = new SuperObjectWithAdvancedIndex(0);
+            var item3 = new SuperObjectWithAdvancedIndex(2);
 
+            var orderedSuperObjects = new ObservableOrderedCollection<SuperObjectWithAdvancedIndex>(nameof(SuperObjectWithAdvancedIndex.Index));
+            orderedSuperObjects.Add(item1);
+            orderedSuperObjects.Add(item2);
+            orderedSuperObjects.Add(item3);
 
-            
-
-
-
+            foreach (var item in orderedSuperObjects)
+                Console.WriteLine(item.Index.Index);
+            return;
 
             /*
 ObservableGroupingCollection
@@ -100,66 +106,31 @@ ObservableGroupingCollection
         }
     }
 
-    public class PropertyComparer<T> : Comparer<T>
-    {
-        private readonly Func<T, T, int> _compare;
-
-        public PropertyComparer(string propertyName)
-        {
-            CreateCompare(ref _compare, propertyName);
-        }
-
-        public override int Compare(T x, T y) => _compare(x, y);
-
-        private static Func<T, T, int> CreateCompare(ref Func<T, T, int> func, string propertyName)
-        {
-            var property = typeof(T).GetProperty(propertyName);
-            var type = property.PropertyType;
-
-            if (type == typeof(string))
-                func = (x, y) => StringComparer.CurrentCulture.Compare((string)property.GetValue(x), (string)property.GetValue(y));
-            else if (type == typeof(char))
-                func = _CC<char>(property);
-            else if (type == typeof(bool))
-                func = _CC<bool>(property);
-            else if (type == typeof(sbyte))
-                func = _CC<sbyte>(property);
-            else if (type == typeof(byte))
-                func = _CC<byte>(property);
-            else if (type == typeof(short))
-                func = _CC<short>(property);
-            else if (type == typeof(ushort))
-                func = _CC<ushort>(property);
-            else if (type == typeof(int))
-                func = _CC<int>(property);
-            else if (type == typeof(uint))
-                func = _CC<uint>(property);
-            else if (type == typeof(long))
-                func = _CC<long>(property);
-            else if (type == typeof(ulong))
-                func = _CC<ulong>(property);
-            else if (type == typeof(float))
-                func = _CC<float>(property);
-            else if (type == typeof(double))
-                func = _CC<double>(property);
-            else if (type == typeof(decimal))
-                func = _CC<decimal>(property);
-            else if (type == typeof(DateTime))
-                func = _CC<DateTime>(property);
-            else if (type == typeof(TimeSpan))
-                func = _CC<TimeSpan>(property);
-
-            return func;
-        }
-
-        private static Func<T, T, int> _CC<TPropertyType>(PropertyInfo propertyInfo) => (x, y) => Comparer<TPropertyType>.Default.Compare((TPropertyType)propertyInfo.GetValue(x), (TPropertyType)propertyInfo.GetValue(y));
-    }
-
     class Person
     {
         public string Name { get; set; }
         public int Age { get; set; }
 
         public override string ToString() => $"{Name} - {Age}";
+    }
+
+    class SuperObjectWithAdvancedIndex
+    {
+        public AdvancedIndex Index { get; private set; }
+
+        public SuperObjectWithAdvancedIndex(int index)
+        {
+            Index = new AdvancedIndex { Index = index };
+        }
+    }
+
+    class AdvancedIndex : IComparable<AdvancedIndex>
+    {
+        public int Index { get; set; }
+        
+        public int CompareTo(AdvancedIndex other)
+        {
+            return Comparer<int>.Default.Compare(Index, other.Index);
+        }
     }
 }
