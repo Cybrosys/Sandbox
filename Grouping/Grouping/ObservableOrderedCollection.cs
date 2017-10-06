@@ -100,8 +100,8 @@ namespace Grouping
                 itemAtIndex = this[index];
 
                 // If itemAboveIndex is greater than item or itemAtIndex is less than item, return false.
-                if (_comparer.Compare(itemAboveIndex, item) == 1 ||
-                    _comparer.Compare(itemAtIndex, item) == -1)
+                if (_comparer.Compare(itemAboveIndex, item) > 0 ||
+                    _comparer.Compare(itemAtIndex, item) < 0)
                     return false;
                 return true;
             }
@@ -111,8 +111,8 @@ namespace Grouping
                 // Compare against itemAtIndex
                 itemAtIndex = this[index];
 
-                // If itemAtIndex is less than item, return false.
-                return _comparer.Compare(itemAtIndex, item) != -1;
+                // If itemAtIndex is greater than or equal to item, return true.
+                return _comparer.Compare(itemAtIndex, item) > 0;
             }
 
             if (index > 0 && index == Count)
@@ -120,8 +120,8 @@ namespace Grouping
                 // Compare against itemAboveIndex
                 itemAboveIndex = this[index - 1];
 
-                // If itemAboveIndex is greater than item, return false;
-                return _comparer.Compare(itemAboveIndex, item) != 1;
+                // If itemAboveIndex is less than or equal to item, return true;
+                return _comparer.Compare(itemAboveIndex, item) < 1;
             }
 
             // Should never reach this part.
@@ -133,7 +133,7 @@ namespace Grouping
             for (int i = 0; i < Count; ++i)
             {
                 // If stored item at index is greater than the passed in item.
-                if (_comparer.Compare(this[i], item) == 1)
+                if (_comparer.Compare(this[i], item) > 0)
                     return i;
             }
 
