@@ -18,15 +18,46 @@ namespace Grouping
             _comparer = Comparer<T>.Default;
         }
 
-        public ObservableOrderedCollection(List<T> list) : base(list.OrderBy(item => item).ToList())
+        public ObservableOrderedCollection(Comparer<T> comparer)
+        {
+            _comparer = comparer;
+        }
+
+        public ObservableOrderedCollection(string orderBy)
+        {
+            _comparer = new PropertyComparer<T>(orderBy);
+        }
+
+        public ObservableOrderedCollection(List<T> list) : base(list.OrderBy(item => item, Comparer<T>.Default).ToList())
         {
             _comparer = Comparer<T>.Default;
         }
 
-        public ObservableOrderedCollection(IEnumerable<T> collection) : base(collection.OrderBy(item => item))
+        public ObservableOrderedCollection(IEnumerable<T> collection) : base(collection.OrderBy(item => item, Comparer<T>.Default))
         {
             _comparer = Comparer<T>.Default;
         }
+
+        public ObservableOrderedCollection(List<T> list, Comparer<T> comparer) : base(list.OrderBy(item => item, comparer).ToList())
+        {
+            _comparer = comparer;
+        }
+
+        public ObservableOrderedCollection(IEnumerable<T> collection, Comparer<T> comparer) : base(collection.OrderBy(item => item, comparer))
+        {
+            _comparer = comparer;
+        }
+
+        public ObservableOrderedCollection(List<T> list, string orderBy) : base(list.OrderBy(item => item, new PropertyComparer<T>(orderBy)).ToList())
+        {
+            _comparer = new PropertyComparer<T>(orderBy);
+        }
+
+        public ObservableOrderedCollection(IEnumerable<T> collection, string orderBy) : base(collection.OrderBy(item => item, new PropertyComparer<T>(orderBy)))
+        {
+            _comparer = new PropertyComparer<T>(orderBy);
+        }
+
 
         protected override void InsertItem(int index, T item)
         {
