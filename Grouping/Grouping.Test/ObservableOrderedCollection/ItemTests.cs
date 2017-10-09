@@ -1,4 +1,4 @@
-﻿using Grouping.Test.Data;
+﻿using Grouping.Test.ObservableOrderedCollection.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Grouping.Test
+namespace Grouping.Test.ObservableOrderedCollection
 {
     [TestClass]
     public class ItemIntPropertyTests : DefaultImplTests<Item>

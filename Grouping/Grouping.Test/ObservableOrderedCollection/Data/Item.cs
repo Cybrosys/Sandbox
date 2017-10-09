@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Grouping.Test.Data
+namespace Grouping.Test.ObservableOrderedCollection.Data
 {
     public class Item : ObservableObject
     {
