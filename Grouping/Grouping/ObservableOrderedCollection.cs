@@ -76,13 +76,18 @@ namespace Grouping
 
         protected override void SetItem(int index, T item)
         {
-            // Replace the item, check if the current index is a valid index for the item, otherwise get a valid index and invoke Move.
-            base.SetItem(index, item);
-            if (!IsValidIndexForItem(index, item))
+            // Check and store if the current index is a valid index for the item
+            var isValidIndex = IsValidIndexForItem(index, item);
+            if (isValidIndex)
             {
-                var newIndex = GetValidIndexForItem(item);
-                Move(index, newIndex);
+                // Replace the item.
+                base.SetItem(index, item);
+                return;
             }
+
+            // It wasn't a valid index, move the item to a valid index.
+            var newIndex = GetValidIndexForItem(item);
+            base.Move(index, newIndex);
         }
 
         private bool IsValidIndexForItem(int index, T item)
