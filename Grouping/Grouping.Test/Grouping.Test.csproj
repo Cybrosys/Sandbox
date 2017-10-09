@@ -51,15 +51,16 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ObservableOrderedCollection\AssertEx.cs" />
-    <Compile Include="ObservableOrderedCollection\ByteTests.cs" />
-    <Compile Include="ObservableOrderedCollection\Data\Item.cs" />
-    <Compile Include="ObservableOrderedCollection\DefaultImplTests.cs" />
-    <Compile Include="ObservableOrderedCollection\IntTests.cs" />
-    <Compile Include="ObservableOrderedCollection\ItemTests.cs" />
+    <Compile Include="Grouping\ItemTests.cs" />
+    <Compile Include="AssertEx.cs" />
+    <Compile Include="Ordering\ByteTests.cs" />
+    <Compile Include="Models\Item.cs" />
+    <Compile Include="Ordering\DefaultImplTests.cs" />
+    <Compile Include="Ordering\IntTests.cs" />
+    <Compile Include="Ordering\ItemTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ObservableOrderedCollection\StringTests.cs" />
-    <Compile Include="ObservableOrderedCollection\Tests.cs" />
+    <Compile Include="Ordering\StringTests.cs" />
+    <Compile Include="Ordering\Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Grouping\Grouping.csproj">

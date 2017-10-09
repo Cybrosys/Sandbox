@@ -38,14 +38,25 @@ namespace Grouping
             {
                 Console.WriteLine($"Item {e.Action}");
             };
-
+            
             cars.GroupBy = nameof(Car.Name);
         }
     }
 
-    public class Car
+    public class Car : ObservableObject
     {
-        public string Name { get; set; }
-        public string Type { get; set; }
+        private string _name;
+        private string _type;
+
+        public string Name
+        {
+            get { return _name; }
+            set { SetProperty(ref _name, value); }
+        }
+        public string Type
+        {
+            get { return _type; }
+            set { SetProperty(ref _type, value); }
+        }
     }
 }

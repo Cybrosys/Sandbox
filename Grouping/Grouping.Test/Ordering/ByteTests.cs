@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
-namespace Grouping.Test.ObservableOrderedCollection
+namespace Grouping.Test.Ordering
 {
     [TestClass]
     public class ByteTests : DefaultImplTests<byte>

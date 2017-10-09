@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Grouping.Test.ObservableOrderedCollection
+namespace Grouping.Test.Ordering
 {
     public abstract class DefaultImplTests<T> : Tests<T>
     {
@@ -81,7 +81,7 @@ namespace Grouping.Test.ObservableOrderedCollection
             sortedResult.Sort();
 
             // Assert
-            AssertEx.AreEqual(result, sortedResult, _orderBy);
+            AssertEx.AreEqual(sortedResult, result, _orderBy);
         }
 
         [TestMethod]
@@ -100,7 +100,7 @@ namespace Grouping.Test.ObservableOrderedCollection
             }
 
             // Assert
-            AssertEx.AreEqual(result, sortedResult, _orderBy);
+            AssertEx.AreEqual(sortedResult, result, _orderBy);
         }
 
         [TestMethod]
@@ -119,7 +119,7 @@ namespace Grouping.Test.ObservableOrderedCollection
             var sortedResult = string.IsNullOrWhiteSpace(_orderBy) ? new ObservableOrderedCollection<T>(result) : new ObservableOrderedCollection<T>(result, _orderBy);
 
             // Assert
-            AssertEx.AreEqual(result, sortedResult, _orderBy);
+            AssertEx.AreEqual(sortedResult, result, _orderBy);
         }
     }
 }

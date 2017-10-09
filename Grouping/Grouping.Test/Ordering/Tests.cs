@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Grouping.Test.ObservableOrderedCollection
+namespace Grouping.Test.Ordering
 {
     public abstract class Tests<T>
     {
