@@ -285,7 +285,6 @@ namespace Grouping
             var item = (T)sender;
             var group = _groups.FirstOrDefault(g => g.Contains(item));
             if (group == null) return;
-            group.Remove(item);
 
             // Get group for item.
             var newGroup = GetOrCreateGroupForItem(item);
@@ -297,6 +296,9 @@ namespace Grouping
             var indexOfItemInGroup = group.IndexOf(item);
             var indexOfNewGroup = _groups.IndexOf(newGroup);
             var indexOfItemInNewGroup = newGroup.IndexOf(item);
+
+            // Remove item from old group.
+            group.Remove(item);
 
             // Create args...
             var args = CreateArgsFrom(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Move, item, sourceIndex, sourceIndex));
