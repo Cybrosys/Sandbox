@@ -1,75 +1,20 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Grouping
 {
     public class ObservableOrderedGroupingCollection<T> : ObservableCollection<T>, IDisposable
     {
-        public class Group<TKey> : ObservableOrderedCollection<T>
-        {
-            private readonly TKey _key;
-
-            public Group(TKey key)
-            {
-                _key = key;
-            }
-
-            public Group(TKey key, Comparer<T> comparer) : base(comparer)
-            {
-                _key = key;
-            }
-
-            public Group(TKey key, string orderBy) : base(orderBy)
-            {
-                _key = key;
-            }
-
-            public Group(TKey key, List<T> list) : base(list)
-            {
-                _key = key;
-            }
-
-            public Group(TKey key, IEnumerable<T> collection) : base(collection)
-            {
-                _key = key;
-            }
-
-            public Group(TKey key, List<T> list, Comparer<T> comparer) : base(list, comparer)
-            {
-                _key = key;
-            }
-
-            public Group(TKey key, IEnumerable<T> collection, Comparer<T> comparer) : base(collection, comparer)
-            {
-                _key = key;
-            }
-
-            public Group(TKey key, List<T> list, string orderBy) : base(list, orderBy)
-            {
-                _key = key;
-            }
-
-            public Group(TKey key, IEnumerable<T> collection, string orderBy) : base(collection, orderBy)
-            {
-                _key = key;
-            }
-
-            public TKey Key => _key;
-        }
-
         private string _groupBy;
         private string _orderBy;
         private PropertyInfo _groupByProperty;
         private PropertyInfo _orderByProperty;
-        private ObservableOrderedCollection<Group<string>> _groups;
+        private ObservableOrderedCollection<ObservableOrderedGroupCollection<string, T>> _groups;
 
         public string GroupBy
         {
@@ -93,7 +38,7 @@ namespace Grouping
                 CreateGroups();
             }
         }
-        public ObservableOrderedCollection<Group<string>> Groups => _groups;
+        public ObservableOrderedCollection<ObservableOrderedGroupCollection<string, T>> Groups => _groups;
 
         public ObservableOrderedGroupingCollection() : base()
         {
@@ -290,13 +235,13 @@ namespace Grouping
                 OnCollectionGroupingChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             }
             if (string.IsNullOrWhiteSpace(_groupBy) || string.IsNullOrWhiteSpace(_orderBy)) return;
-            _groups = new ObservableOrderedCollection<Group<string>>(nameof(Group<string>.Key));
+            _groups = new ObservableOrderedCollection<ObservableOrderedGroupCollection<string, T>>(nameof(ObservableOrderedGroupCollection<string, T>.Key));
 
             if (Count == 0) return;
             var result = this.GroupBy(item => _groupByProperty.GetValue(item).ToString());
             foreach (var item in result)
             {
-                var group = new Group<string>(item.Key, item, _orderBy);
+                var group = new ObservableOrderedGroupCollection<string, T>(item.Key, item, _orderBy);
                 _groups.Add(group);
                 OnCollectionGroupingChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, group, _groups.IndexOf(group)));
             }
@@ -364,20 +309,20 @@ namespace Grouping
             base.OnCollectionChanged(args);
         }
 
-        private Group<string> GetOrCreateGroupForItem(T item)
+        private ObservableOrderedGroupCollection<string, T> GetOrCreateGroupForItem(T item)
         {
             var groupKey = _groupByProperty.GetValue(item).ToString();
             var group = _groups.FirstOrDefault(g => g.Key == groupKey);
             if (group == null)
             {
-                group = new Group<string>(groupKey, _orderBy);
+                group = new ObservableOrderedGroupCollection<string, T>(groupKey, _orderBy);
                 _groups.Add(group);
                 OnCollectionGroupingChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, group, _groups.IndexOf(group)));
             }
             return group;
         }
 
-        private Group<string> GetGroupForItem(T item)
+        private ObservableOrderedGroupCollection<string, T> GetGroupForItem(T item)
         {
             var groupKey = _groupByProperty.GetValue(item).ToString();
             return _groups.FirstOrDefault(g => g.Key == groupKey);
