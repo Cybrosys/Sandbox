@@ -309,6 +309,13 @@ namespace Grouping
 
             // Pass it to base.
             base.OnCollectionChanged(args);
+
+            // Check if the group is empty, and if so, remove it and call OnCollectionGroupingChanged.
+            if (group.Count == 0)
+            {
+                _groups.Remove(group);
+                OnCollectionGroupingChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, group, indexOfGroup));
+            }
         }
 
         private ObservableOrderedGroupCollection<string, T> GetOrCreateGroupForItem(T item)
