@@ -10,11 +10,11 @@ namespace Grouping
 {
     public class ObservableOrderedGroupingCollection<T> : ObservableCollection<T>, IDisposable
     {
+        private readonly ObservableOrderedCollection<ObservableOrderedGroupCollection<string, T>> _groups = new ObservableOrderedCollection<ObservableOrderedGroupCollection<string, T>>(nameof(ObservableOrderedGroupCollection<string, T>.Key));
         private string _groupBy;
         private string _orderBy;
         private PropertyInfo _groupByProperty;
         private PropertyInfo _orderByProperty;
-        private ObservableOrderedCollection<ObservableOrderedGroupCollection<string, T>> _groups;
 
         public string GroupBy
         {
@@ -229,13 +229,12 @@ namespace Grouping
 
         private void CreateGroups(bool notifyCollectionChanged = true)
         {
-            if (_groups != null)
+            if (_groups.Count > 0)
             {
                 _groups.Clear();
                 OnCollectionGroupingChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             }
             if (string.IsNullOrWhiteSpace(_groupBy) || string.IsNullOrWhiteSpace(_orderBy)) return;
-            _groups = new ObservableOrderedCollection<ObservableOrderedGroupCollection<string, T>>(nameof(ObservableOrderedGroupCollection<string, T>.Key));
 
             if (Count == 0) return;
             var result = this.GroupBy(item => _groupByProperty.GetValue(item).ToString());
@@ -367,11 +366,8 @@ namespace Grouping
                 if (disposing)
                 {
                     UnsubscribeFromItems(this);
-                    if (_groups != null)
-                    {
-                        foreach (var group in _groups)
-                            UnsubscribeFromItems(group);
-                    }
+                    foreach (var group in _groups)
+                        UnsubscribeFromItems(group);
                 }
                 disposedValue = true;
             }
