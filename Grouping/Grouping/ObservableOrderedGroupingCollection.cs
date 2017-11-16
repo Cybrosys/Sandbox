@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace Grouping
 {
-    public class ObservableOrderedGroupingCollection<T> : ObservableCollection<T>, IDisposable
+    public class ObservableOrderedGroupingCollection<T> : System.Collections.ObjectModel.ObservableCollection<T>, IDisposable
     {
         private readonly ObservableOrderedCollection<ObservableOrderedGroupCollection<string, T>> _groups = new ObservableOrderedCollection<ObservableOrderedGroupCollection<string, T>>(nameof(ObservableOrderedGroupCollection<string, T>.Key));
         private string _groupBy;

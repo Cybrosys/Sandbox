@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Grouping
 {
-    public class ObservableOrderedCollection<T> : ObservableCollection<T>
+    public class ObservableOrderedCollection<T> : System.Collections.ObjectModel.ObservableCollection<T>
     {
         private readonly Comparer<T> _comparer;
 
