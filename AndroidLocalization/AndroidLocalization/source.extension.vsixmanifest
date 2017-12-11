@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="AndroidLocalization.Mikael Nensén.37569ddc-4109-4c22-9b95-a924d789833f" Version="0.2" Language="en-US" Publisher="Mikael Nensén" />
+        <Identity Id="AndroidLocalization.Mikael Nensén.37569ddc-4109-4c22-9b95-a924d789833f" Version="0.2.1" Language="en-US" Publisher="Mikael Nensén" />
         <DisplayName>Android Localization</DisplayName>
-        <Description xml:space="preserve">A simple extension that helps with editing multiple strings xml files in Xamarin Android projects.</Description>
+        <Description xml:space="preserve">A extension that helps with editing multiple strings xml files in Xamarin Android projects.</Description>
         <Tags>xamarin, android, strings, localization, xml</Tags>
     </Metadata>
     <Installation>
