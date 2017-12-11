@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NotifyGroupCollectionChangedEventArgs.cs" />
+    <Compile Include="ObservableCollection.cs" />
     <Compile Include="ObservableOrderedGroupCollection.cs" />
     <Compile Include="ObservableOrderedGroupingCollection.cs" />
     <Compile Include="ObservableObject.cs" />
