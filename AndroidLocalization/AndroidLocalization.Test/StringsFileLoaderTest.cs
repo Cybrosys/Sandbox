@@ -19,7 +19,8 @@ namespace AndroidLocalization.Test
         [TestCase("TestData\\Resources\\values\\Strings.xml", "")]
         [TestCase("TestData\\Resources\\values-sv\\Strings.xml", "sv")]
         [TestCase("TestData\\Resources\\values-de\\Strings.xml", "de")]
-        public void Load_returns_country_code_and_all_rows(string relativePath, string expectedCountryCode)
+        [TestCase("TestData\\Resources\\values-b+sv+SE\\Strings.xml", "sv-SE")]
+        public void Load_returns_country_code_and_all_rows(string relativePath, string expectedLanguageCode)
         {
             // Arrange
             var filePath = Path.Combine(_directoryName, relativePath);
@@ -29,7 +30,7 @@ namespace AndroidLocalization.Test
 
             // Assert
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.LanguageCode, Is.EqualTo(expectedCountryCode));
+            Assert.That(result.LanguageCode, Is.EqualTo(expectedLanguageCode));
             Assert.That(result.Rows, Is.Not.Empty);
             Assert.That(result.Rows.Count, Is.EqualTo(5));
         }
@@ -38,7 +39,8 @@ namespace AndroidLocalization.Test
         [TestCase("TestData\\Resources\\values\\Strings.xml", "")]
         [TestCase("TestData\\Resources\\values-sv\\Strings.xml", "sv")]
         [TestCase("TestData\\Resources\\values-de\\Strings.xml", "de")]
-        async public Task Load_async_returns_country_code_and_all_rows(string relativePath, string expectedCountryCode)
+        [TestCase("TestData\\Resources\\values-b+sv+SE\\Strings.xml", "sv-SE")]
+        async public Task Load_async_returns_country_code_and_all_rows(string relativePath, string expectedLanguageCode)
         {
             // Arrange
             var filePath = Path.Combine(_directoryName, relativePath);
@@ -48,7 +50,7 @@ namespace AndroidLocalization.Test
 
             // Assert
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.LanguageCode, Is.EqualTo(expectedCountryCode));
+            Assert.That(result.LanguageCode, Is.EqualTo(expectedLanguageCode));
             Assert.That(result.Rows, Is.Not.Empty);
             Assert.That(result.Rows.Count, Is.EqualTo(5));
         }

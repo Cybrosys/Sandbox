@@ -49,7 +49,8 @@ namespace AndroidLocalization.Data
 
                 var column = new DataColumn
                 {
-                    ColumnName = nameOrDefault,
+                    Caption = nameOrDefault,
+                    //ColumnName = nameOrDefault,
                     DataType = typeof(string),
                     DefaultValue = string.Empty
                 };
@@ -58,10 +59,11 @@ namespace AndroidLocalization.Data
             }).ToList();
         }
 
-        private string GetNameFromLanguageCode(string countryCode)
+        private string GetNameFromLanguageCode(string languageCode)
         {
-            if (string.IsNullOrWhiteSpace(countryCode)) return "Default";
-            return new CultureInfo(countryCode).EnglishName;
+            if (string.IsNullOrWhiteSpace(languageCode)) return "Default";
+            return $"{new CultureInfo(languageCode).EnglishName} [{languageCode}]";
+            //return new CultureInfo(languageCode).EnglishName;
         }
 
         private string[] GetRowValuesForKey(string key, List<StringsFile> stringsFiles)

@@ -23,7 +23,7 @@ namespace AndroidLocalization.Test
 
             // Assert
             Assert.That(result, Is.Not.Empty);
-            Assert.That(result.Count, Is.EqualTo(3));
+            Assert.That(result.Count, Is.EqualTo(5));
         }
 
         [Test]
@@ -35,7 +35,7 @@ namespace AndroidLocalization.Test
 
             // Assert
             Assert.That(result, Is.Not.Empty);
-            Assert.That(result.Count, Is.EqualTo(3));
+            Assert.That(result.Count, Is.EqualTo(5));
         }
 
         [Test]
@@ -49,7 +49,7 @@ namespace AndroidLocalization.Test
 
             // Assert
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.Columns.Count, Is.EqualTo(4));
+            Assert.That(result.Columns.Count, Is.EqualTo(6));
             Assert.That(result.Rows.Count, Is.EqualTo(5));
         }
     }

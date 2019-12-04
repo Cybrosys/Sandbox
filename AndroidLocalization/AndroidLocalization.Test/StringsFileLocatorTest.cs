@@ -22,7 +22,7 @@ namespace AndroidLocalization.Test
 
             // Assert
             Assert.That(result, Is.Not.Null.And.Not.Empty);
-            Assert.That(result.Count, Is.EqualTo(3));
+            Assert.That(result.Count, Is.EqualTo(5));
         }
     }
 

@@ -37,6 +37,12 @@ namespace AndroidLocalization.Views
 
             if (textColumn.Header.ToString() == "Key")
                 ((Binding)textColumn.Binding).ValidationRules.Add(new IsNullOrWhiteSpaceValidationRule());
+            else
+            {
+                var sourceColumn = ViewModel?.DataTable?.Columns[textColumn.Header.ToString()];
+                if (sourceColumn != null)
+                    textColumn.Header = sourceColumn.Caption;
+            }
 
             var emptyStringTrigger = new DataTrigger { Binding = textColumn.Binding };
             emptyStringTrigger.Value = string.Empty;
