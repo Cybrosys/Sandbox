@@ -34,8 +34,8 @@ namespace AndroidLocalization.Data
 
             if (directoryInfo.Name.ToLower().StartsWith("values-b"))
             {
-                // If BCP 47, only support the -b+xx+YYYY and -b+xx+YY pattern
-                var regex = new Regex("^values-b[+]\\w{2}[+](\\w{4}|\\w{2})$");
+                // If BCP 47, only support the -b+xx+YY, -b+xx+YYYY and -b+xx+YY+ZZZZ pattern
+                var regex = new Regex("^values-b[+]\\w{2}[+](\\w{2}\\w{4})|(\\w{4}|\\w{2})$");
                 if (!regex.IsMatch(directoryInfo.Name))
                     return false;
             }

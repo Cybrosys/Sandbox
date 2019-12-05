@@ -77,7 +77,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestData\Resources\values-b+ru+Rimi\Strings.xml" />
+    <Content Include="TestData\Resources\values-b+ru+RU+Rimi\Strings.xml" />
     <Content Include="TestData\Resources\values-b+sv+SE\Strings.xml" />
     <Content Include="TestData\Resources\values-de\Strings.xml" />
     <Content Include="TestData\Resources\values-sv\Strings.xml" />

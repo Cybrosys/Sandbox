@@ -20,6 +20,7 @@ namespace AndroidLocalization.Test
         [TestCase("TestData\\Resources\\values-sv\\Strings.xml", "sv")]
         [TestCase("TestData\\Resources\\values-de\\Strings.xml", "de")]
         [TestCase("TestData\\Resources\\values-b+sv+SE\\Strings.xml", "sv-SE")]
+        [TestCase("TestData\\Resources\\values-b+ru+RU+Rimi\\Strings.xml", "ru-RU-Rimi")]
         public void Load_returns_country_code_and_all_rows(string relativePath, string expectedLanguageCode)
         {
             // Arrange
@@ -40,6 +41,7 @@ namespace AndroidLocalization.Test
         [TestCase("TestData\\Resources\\values-sv\\Strings.xml", "sv")]
         [TestCase("TestData\\Resources\\values-de\\Strings.xml", "de")]
         [TestCase("TestData\\Resources\\values-b+sv+SE\\Strings.xml", "sv-SE")]
+        [TestCase("TestData\\Resources\\values-b+ru+RU+Rimi\\Strings.xml", "ru-RU-Rimi")]
         async public Task Load_async_returns_country_code_and_all_rows(string relativePath, string expectedLanguageCode)
         {
             // Arrange
