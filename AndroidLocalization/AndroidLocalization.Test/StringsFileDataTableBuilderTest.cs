@@ -24,7 +24,7 @@ namespace AndroidLocalization.Test
 
             // Assert
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.Columns.Count, Is.EqualTo(4));
+            Assert.That(result.Columns.Count, Is.EqualTo(1 + stringsFiles.Count));
             Assert.That(result.Rows.Count, Is.EqualTo(5));
         }
     }

@@ -50,11 +50,14 @@ namespace AndroidLocalization.Data
 
         private string GetLanguageCodeFromFilePath(string filePath)
         {
-            var directoryName = GetDirectoryNameFromFilePath(filePath).ToLower();
+            var directoryName = GetDirectoryNameFromFilePath(filePath);
 
             if (!directoryName.StartsWith("values")) throw new ArgumentException(nameof(filePath));
             if (directoryName == "values") return string.Empty;
-            return directoryName.Replace("values-", "");
+            if (directoryName.StartsWith("values-b"))
+                return directoryName.Replace("values-b+", "").Replace("+", "-");
+            else
+                return directoryName.Replace("values-", "");
         }
 
         private string GetDirectoryNameFromFilePath(string filePath)

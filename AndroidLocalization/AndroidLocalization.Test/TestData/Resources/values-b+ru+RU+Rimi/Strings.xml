@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <string name="AppName">Easy Shop</string>
+    
+    <string name="Add_item_problem">Det uppstod ett problem vid lägg till artikel</string>
+    <string name="Barcode">Streckkod</string>
+    <string name="Campaign">Kampanj</string>
+    <string name="Cancel">Avbryt</string>
+</resources>
