@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage
+    x:Class="MauiColors.Views.ColorsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:MauiColors.Converters"
+    xmlns:m="clr-namespace:MauiColors.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:views="clr-namespace:MauiColors.Views"
+    xmlns:vm="clr-namespace:MauiColors.ViewModels"
+    x:DataType="vm:ColorsViewModel"
+    x:TypeArguments="vm:ColorsViewModel">
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding LoadColorsCommand}" EventName="Loaded" />
+    </ContentPage.Behaviors>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:HexRgbStringToColorConverter x:Key="HexRgbStringToColorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView Orientation="Vertical">
+        <VerticalStackLayout BindableLayout.ItemsSource="{Binding ColorGroups}" Spacing="10">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="m:ColorGroup">
+                    <VerticalStackLayout>
+                        <Label FontAttributes="Bold" Text="{Binding Name}" />
+
+                        <CollectionView
+                            ItemsSource="{Binding Colors}"
+                            SelectionChangedCommand="{Binding Source={RelativeSource AncestorType={x:Type vm:ColorsViewModel}}, Path=ColorTappedCommand}"
+                            SelectionChangedCommandParameter="{Binding Path=SelectedItem, Source={RelativeSource Self}}"
+                            SelectionMode="Single">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal" />
+                            </CollectionView.ItemsLayout>
+
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="m:Color">
+                                    <VerticalStackLayout Padding="0,0,0,20">
+                                        <Border
+                                            BackgroundColor="{Binding Value, Converter={StaticResource HexRgbStringToColorConverter}}"
+                                            HeightRequest="90"
+                                            StrokeThickness="0"
+                                            WidthRequest="90" />
+                                        <Label
+                                            FontSize="Caption"
+                                            HorizontalTextAlignment="Center"
+                                            LineBreakMode="WordWrap"
+                                            Text="{Binding Name}"
+                                            WidthRequest="80" />
+                                    </VerticalStackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</views:BaseContentPage>

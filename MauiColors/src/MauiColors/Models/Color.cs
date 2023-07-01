@@ -1,3 +1,7 @@
 ﻿namespace MauiColors.Models;
 
-public record class Color(string Name, string Value);
+public class Color
+{
+    public string Name { get; set; }
+    public string Value { get; set; }
+}

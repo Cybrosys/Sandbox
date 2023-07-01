@@ -1,0 +1,386 @@
+[
+    {
+        "Name": "Abomination Gore",
+        "Value": "#6C1E10"
+    },
+    {
+        "Name": "Alien Purple",
+        "Value": "#50317B"
+    },
+    {
+        "Name": "Angel Green",
+        "Value": "#0C391D"
+    },
+    {
+        "Name": "Arid Earth",
+        "Value": "#FAECC3"
+    },
+    {
+        "Name": "Army Green",
+        "Value": "#6E7645"
+    },
+    {
+        "Name": "Ash Grey",
+        "Value": "#A2A5A4"
+    },
+    {
+        "Name": "Babe Blonde",
+        "Value": "#F8DD0D"
+    },
+    {
+        "Name": "Banshee Brown",
+        "Value": "#C3B097"
+    },
+    {
+        "Name": "Barbarian Flesh",
+        "Value": "#E89C6C"
+    },
+    {
+        "Name": "Basilisk Brown",
+        "Value": "#CD8315"
+    },
+    {
+        "Name": "Brainmatter Beige",
+        "Value": "#F1F0E0"
+    },
+    {
+        "Name": "Castle Grey",
+        "Value": "#F1F0E0"
+    },
+    {
+        "Name": "Centaur Skin",
+        "Value": "#DEABA0"
+    },
+    {
+        "Name": "Chaotic Red",
+        "Value": "#6C1E10"
+    },
+    {
+        "Name": "Combat Fatigue",
+        "Value": "#878E5C"
+    },
+    {
+        "Name": "Commando Green",
+        "Value": "#827B39"
+    },
+    {
+        "Name": "Corpse Pale",
+        "Value": "#EDCCAD"
+    },
+    {
+        "Name": "Crusted Sore",
+        "Value": "#611624"
+    },
+    {
+        "Name": "Crypt Wraith",
+        "Value": "#606050"
+    },
+    {
+        "Name": "Crystal Blue",
+        "Value": "#0083C2"
+    },
+    {
+        "Name": "Cultist Robe",
+        "Value": "#756E60"
+    },
+    {
+        "Name": "Daemonic Yellow",
+        "Value": "#FADA06"
+    },
+    {
+        "Name": "Dark Sky",
+        "Value": "#2B4B5F"
+    },
+    {
+        "Name": "Dark Stone",
+        "Value": "#605752"
+    },
+    {
+        "Name": "Deep Blue",
+        "Value": "#083251"
+    },
+    {
+        "Name": "Desert Yellow",
+        "Value": "#C7952C"
+    },
+    {
+        "Name": "Dirt Spatter",
+        "Value": "#5E3827"
+    },
+    {
+        "Name": "Dragon Red",
+        "Value": "#9A1B1E"
+    },
+    {
+        "Name": "Drake Tooth",
+        "Value": "#CFCBB4"
+    },
+    {
+        "Name": "Dungeon Grey",
+        "Value": "#686C71"
+    },
+    {
+        "Name": "Electric Blue",
+        "Value": "#508CBE"
+    },
+    {
+        "Name": "Elemental Bolt",
+        "Value": "#009A82"
+    },
+    {
+        "Name": "Elf Green",
+        "Value": "#495122"
+    },
+    {
+        "Name": "Elven Flesh",
+        "Value": "#495122"
+    },
+    {
+        "Name": "Field Grey",
+        "Value": "#787C78"
+    },
+    {
+        "Name": "Filthy Cape",
+        "Value": "#7C7863"
+    },
+    {
+        "Name": "Fire Lizard",
+        "Value": "#D67128"
+    },
+    {
+        "Name": "Fog Grey",
+        "Value": "#6C8FAC"
+    },
+    {
+        "Name": "Fur Brown",
+        "Value": "#A14322"
+    },
+    {
+        "Name": "Goblin Green",
+        "Value": "#348941"
+    },
+    {
+        "Name": "Gorgon Hide",
+        "Value": "#C7D2E4"
+    },
+    {
+        "Name": "Greenskin",
+        "Value": "#136232"
+    },
+    {
+        "Name": "Griffon Blue",
+        "Value": "#215383"
+    },
+    {
+        "Name": "Grimoire Purple",
+        "Value": "#805259"
+    },
+    {
+        "Name": "Hardened Carapace",
+        "Value": "#4C473F"
+    },
+    {
+        "Name": "Hemp Rope",
+        "Value": "#94763A"
+    },
+    {
+        "Name": "Hydra Turquoise",
+        "Value": "#199BA3"
+    },
+    {
+        "Name": "Ice Storm",
+        "Value": "#639EC9"
+    },
+    {
+        "Name": "Jungle Green",
+        "Value": "#88AC2E"
+    },
+    {
+        "Name": "Kobold Skin",
+        "Value": "#C9A484"
+    },
+    {
+        "Name": "Kraken Skin",
+        "Value": "#71C591"
+    },
+    {
+        "Name": "Lava Orange",
+        "Value": "#E65525"
+    },
+    {
+        "Name": "Leather Brown",
+        "Value": "#764823"
+    },
+    {
+        "Name": "Mars Red",
+        "Value": "#B73B37"
+    },
+    {
+        "Name": "Matt Black",
+        "Value": "#231F20"
+    },
+    {
+        "Name": "Matt White",
+        "Value": "#FFFFFF"
+    },
+    {
+        "Name": "Monster Brown",
+        "Value": "#855C2A"
+    },
+    {
+        "Name": "Moon Dust",
+        "Value": "#E8D468"
+    },
+    {
+        "Name": "Mouldy Clothes",
+        "Value": "#447B3A"
+    },
+    {
+        "Name": "Mummy Robes",
+        "Value": "#EBDED5"
+    },
+    {
+        "Name": "Mutant Hue",
+        "Value": "#A58084"
+    },
+    {
+        "Name": "Mythical Orange",
+        "Value": "#E73D24"
+    },
+    {
+        "Name": "Necromance Cloak",
+        "Value": "#3C3D37"
+    },
+    {
+        "Name": "Necrotic Flesh",
+        "Value": "#BFC292"
+    },
+    {
+        "Name": "Oak Brown",
+        "Value": "#432010"
+    },
+    {
+        "Name": "Oozing Purple",
+        "Value": "#AA94B4"
+    },
+    {
+        "Name": "Orc Blood",
+        "Value": "#925F6E"
+    },
+    {
+        "Name": "Phoenix Flames",
+        "Value": "#FAA61A"
+    },
+    {
+        "Name": "Pixie Pink",
+        "Value": "#D47A83"
+    },
+    {
+        "Name": "Poisonous Cloud",
+        "Value": "#CDDE4A"
+    },
+    {
+        "Name": "Pure Red",
+        "Value": "#CF2127"
+    },
+    {
+        "Name": "Royal Cloak",
+        "Value": "#15999C"
+    },
+    {
+        "Name": "Scaly Hide",
+        "Value": "#859852"
+    },
+    {
+        "Name": "Scar Tissue",
+        "Value": "#CA8772"
+    },
+    {
+        "Name": "Skeleton Bone",
+        "Value": "#D3C89D"
+    },
+    {
+        "Name": "Snake Scales",
+        "Value": "#8AB239"
+    },
+    {
+        "Name": "Spaceship Exterior",
+        "Value": "#CDCED0"
+    },
+    {
+        "Name": "Stone Golem",
+        "Value": "#B9BAB7"
+    },
+    {
+        "Name": "Sulphide Ochre",
+        "Value": "#C68512"
+    },
+    {
+        "Name": "Tanned Flesh",
+        "Value": "#BC745E"
+    },
+    {
+        "Name": "Toxic Boils",
+        "Value": "#A67284"
+    },
+    {
+        "Name": "Toxic Mist",
+        "Value": "#39C0C5"
+    },
+    {
+        "Name": "Troglodyte Blue",
+        "Value": "#0889BA"
+    },
+    {
+        "Name": "Troll Claws",
+        "Value": "#CB8B4E"
+    },
+    {
+        "Name": "Ultramarine Blue",
+        "Value": "#0F4E85"
+    },
+    {
+        "Name": "Uniform Grey",
+        "Value": "#5E6A73"
+    },
+    {
+        "Name": "Vampire Red",
+        "Value": "#981D34"
+    },
+    {
+        "Name": "Venom Wyrm",
+        "Value": "#6A653E"
+    },
+    {
+        "Name": "Viking Blue",
+        "Value": "#00609A"
+    },
+    {
+        "Name": "Voidshield Blue",
+        "Value": "#2CA2D9"
+    },
+    {
+        "Name": "Warlock Purple",
+        "Value": "#BB5B64"
+    },
+    {
+        "Name": "Wasteland Soil",
+        "Value": "#774B58"
+    },
+    {
+        "Name": "Werewolf Fur",
+        "Value": "#785E4E"
+    },
+    {
+        "Name": "Witch Brew",
+        "Value": "#92963E"
+    },
+    {
+        "Name": "Wizards Orb",
+        "Value": "#00726A"
+    },
+    {
+        "Name": "Wolf Grey",
+        "Value": "#5B8093"
+    }
+]

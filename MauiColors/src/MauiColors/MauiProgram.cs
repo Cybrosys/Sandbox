@@ -24,6 +24,7 @@ public static class MauiProgram
 #endif
 
 		builder.Services.AddTransient<MainPage, MainViewModel>();
+		builder.Services.AddTransient<ColorsPage, ColorsViewModel>();
 
 		return builder.Build();
 	}
